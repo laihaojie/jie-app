@@ -146,6 +146,12 @@ android {
         }
     }
     signingConfigs {
+        release {
+            storeFile file('./jieapp.jks')
+            storePassword 'lai523523'
+            keyAlias 'jieapp'
+            keyPassword 'lai523523'
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -168,6 +174,11 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "jieapp.apk"
+                }
+            }
         }
     }
 
