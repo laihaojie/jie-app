@@ -4,7 +4,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { useState } from 'react'
 import { routes } from './routes'
 import HomeScreen from "../views/HomeScreen/HomeScreen"
-import TaskScreen from 'src/views/TaskScreen/TaskScreen';
 
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { ScreensParamList } from 'src/typings/router';
@@ -12,15 +11,12 @@ import { Alert, Image, StyleSheet, ToastAndroid } from 'react-native';
 import Icon from "react-native-vector-icons/AntDesign"
 
 import SplashScreen from 'react-native-splash-screen';
-import ProductScreen from 'src/views/ProductScreen/ProductScreen';
 import MyScreen from 'src/views/MyScreen/MyScreen';
-import HelpScreen from 'src/views/HelpScreen/HelpScreen';
 import { navigate, navRef } from 'src/utils/navigationService';
 import { useSelector } from 'react-redux';
 import { selectToken } from 'src/store/selectors';
 import { isEmpty } from 'src/utils';
 import TestScreen from 'src/views/test';
-import FirstHongBao from 'src/components/ShowModal/FirstHongBao';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -39,7 +35,6 @@ const Routes: React.FC = function () {
   React.useEffect(() => SplashScreen.hide(), []);
   const token = useSelector(selectToken)
 
-  const [modalVisible, setModalVisible] = useState(false);
   const check = (e) => {
     if (isEmpty(token)) {
       navigate("LoginScreen")
@@ -48,10 +43,7 @@ const Routes: React.FC = function () {
     }
     e.preventDefault();
   }
-  const showHelp = (e) => {
-    setModalVisible(true)
-    e.preventDefault();
-  }
+
   return (
     <SafeAreaProvider>
 
@@ -75,14 +67,7 @@ const Routes: React.FC = function () {
                 <Tab.Screen name="test" component={TestScreen} options={{
                   title: "test"
                 }} />
-                <Tab.Screen name="task" component={TaskScreen} />
-                <Tab.Screen name="help" listeners={{ "tabPress": showHelp }} component={HelpScreen} options={{
-                  title: "",
-                  tabBarIcon: ({ focused, color, size }) => (
-                    <Image style={{ width: 50, height: 50, marginBottom: 10, }} source={require('../assets/image/tasklogo.png')} />
-                  ),
-                }} />
-                <Tab.Screen name="product" component={ProductScreen} />
+
                 <Tab.Screen name="my" listeners={{ "tabPress": check }} component={MyScreen} />
               </Tab.Navigator>
             )}
@@ -95,9 +80,6 @@ const Routes: React.FC = function () {
       </NavigationContainer>
 
 
-      {
-        modalVisible && <FirstHongBao onClose={setModalVisible}></FirstHongBao>
-      }
 
     </SafeAreaProvider>
   )

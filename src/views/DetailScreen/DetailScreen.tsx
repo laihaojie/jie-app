@@ -13,10 +13,10 @@ const DetailsScreen: FC<NativeStackHeaderProps> = () => {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
       <Button title="按钮1" onPress={() => navigate('home')} />
-      <Input
+      {/* <Input
         placeholder='INPUT WITH ICON'
         leftIcon={<Text>De</Text>}
-      />
+      /> */}
       <Text>{token}</Text>
     </View>
   );

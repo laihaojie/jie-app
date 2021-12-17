@@ -6,25 +6,11 @@ import { Api } from "src/api"
 import { selectToken, selectVersion } from "src/store/selectors"
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-import LoginCard from "./LoginCard"
-import AlreadyLoggedCard from "./AlreadyLoggedCard"
-import TaskCard from "../../components/Screen/Task"
-import ApplyCard from "./ApplyCard"
-import NewsCard from "./NewsCard"
-import Advertising from "./Advertising"
 import { screenHeight, screenWidth } from "src/utils/constants"
-import Exclusive from "./Exclusive"
 import actions from "src/store/actions"
 import * as UpdateAPK from "rn-update-apk"
-import DeviceInfo from 'react-native-device-info';
-import WithdrawCard from "./WithdrawCard"
-import EarningsCard from "./EarningsCard"
-import ShowModal from "src/components/ShowModal/ShowModal"
-import FirstHongBao from "src/components/ShowModal/FirstHongBao"
 import ProgressModal from "src/components/ShowModal/ProgressModal"
-import SuperMarket from "../../components/Screen/SuperMarket"
-import Task from "../../components/Screen/Task"
-import Receive from "./Receive"
+
 
 
 const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
@@ -118,55 +104,15 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
 
   return (
 
-    <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} edges={['left', 'right']}>
+    <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} edges={['top', 'left', 'right']}>
       <ScrollView>
-        {/* <Modal
-          animationType="none"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          {modalVisible ? <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0.3)" /> : null}
-          <TouchableOpacity style={styles.modalView} onPress={() => {
-            setModalVisible(!modalVisible);
-          }}>
-            <Text>Hello World!</Text>
-          </TouchableOpacity>
-        </Modal> */}
-        {
-          modalVisible && <FirstHongBao onClose={setModalVisible}></FirstHongBao>
-        }
-
+        
         {
           progressModalVisible && <ProgressModal onClose={setProgressModalVisible} progress={progress}></ProgressModal>
         }
 
+        <Text>首页</Text>
 
-        {
-          token ?
-            <AlreadyLoggedCard />
-            : <LoginCard />
-        }
-
-        <Advertising />
-
-        <Receive />
-
-        <WithdrawCard />
-
-
-        {/* <Task item={{}}  />
-        <Task item={{}} /> */}
-
-        <SuperMarket />
-        <SuperMarket />
-
-        <ApplyCard />
-        <Exclusive />
-        <EarningsCard />
-        <NewsCard />
 
       </ScrollView>
     </SafeAreaView>
