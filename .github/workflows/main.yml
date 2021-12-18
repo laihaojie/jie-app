@@ -22,7 +22,7 @@ jobs:
           user: ${{ secrets.TG_USER }}
           pass: ${{ secrets.TG_PASS }}
           connect_timeout: 10s
-          local: "./android/app/build/outputs/apk/release/*"
-          remote: /app/static/apk
-      # - name: Send
-      #   run: curl -X GET "https://api.huihuizi.top/api/tools/releaseSuccess?id=admin"
+          local: "./android/app/build/outputs/apk/release/jieapp.apk"
+          remote: /app/nodejs/admin/static/apk
+      - name: Send
+        run: curl -X GET "https://api.huihuizi.top/api/tools/releaseSuccess?id=app"
