@@ -22,7 +22,7 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
 
   updater.current = new UpdateAPK.UpdateAPK({
 
-    apkVersionUrl: `https://api-inapp.lingman.tech/api/Public/dev/androidversion`,
+    apkVersionUrl: `https://api.huihuizi.top/api/public/androidVersion`,
     devVersion: version,
     apkVersionOptions: {
       method: 'GET',
@@ -82,23 +82,11 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
   });
 
 
-  const [modalVisible, setModalVisible] = useState(true);
   const [progressModalVisible, setProgressModalVisible] = useState(false)
+  
   useEffect(() => {
-    if (!modalVisible) {
-      // 检查版本是否更新
-      updater.current.checkUpdate()
-    }
-    // setInterval(() => {
-
-
-    //   setProgress((val) => {
-    //   console.log(val);
-
-    //    return val + 1
-    //   })
-    // }, 20)
-  }, [modalVisible])
+    updater.current.checkUpdate()
+  }, [])
 
 
 
@@ -106,7 +94,7 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
 
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} edges={['top', 'left', 'right']}>
       <ScrollView>
-        
+
         {
           progressModalVisible && <ProgressModal onClose={setProgressModalVisible} progress={progress}></ProgressModal>
         }
