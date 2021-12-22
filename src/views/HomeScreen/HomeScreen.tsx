@@ -32,7 +32,7 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
     apkOptions: {
       headers: {}
     },
-    fileProviderAuthority: "com.inapp.fileprovider",
+    fileProviderAuthority: "com.jieapp.fileprovider",
 
 
     needUpdateApp: performUpdate => {
