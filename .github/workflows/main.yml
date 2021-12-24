@@ -12,18 +12,26 @@ jobs:
           cd android
           chmod +x ./gradlew 
           ./gradlew assembleRelease
-      - name: Scp
-        uses: cross-the-world/scp-pipeline@master
-        env:
-          WELCOME: "ssh scp ssh pipelines"
-          LASTSSH: "Doing something after copying"
+
+      - uses: manyuanrong/setup-ossutil@v2.0
         with:
-          host: ${{ secrets.TG_HOST }}
-          user: ${{ secrets.TG_USER }}
-          pass: ${{ secrets.TG_PASS }}
-          connect_timeout: 10s
-          local: "./android/app/build/outputs/apk/release/jieapp.apk"
-          remote: /app/nodejs/admin/static/apk
+          endpoint: "oss-cn-shanghai.aliyuncs.com"
+          access-key-id: ${{ secrets.ACCESSKEYID }}
+          access-key-secret: ${{ secrets.ACCESSKEYSECRET }}
+      - run: ossutil cp -rf ./android/app/build/outputs/apk/release/jieapp.apk oss://luhaojie/apks
+
+      # - name: Scp
+      #   uses: cross-the-world/scp-pipeline@master
+      #   env:
+      #     WELCOME: "ssh scp ssh pipelines"
+      #     LASTSSH: "Doing something after copying"
+      #   with:
+      #     host: ${{ secrets.TG_HOST }}
+      #     user: ${{ secrets.TG_USER }}
+      #     pass: ${{ secrets.TG_PASS }}
+      #     connect_timeout: 10s
+      #     local: "./android/app/build/outputs/apk/release/jieapp.apk"
+      #     remote: /app/nodejs/admin/static/apk
           
   send:
     runs-on: ubuntu-latest
