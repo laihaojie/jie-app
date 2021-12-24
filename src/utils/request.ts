@@ -109,6 +109,6 @@ function parseUrl(url, params) {
   return baseUrl + url
 }
 
-export const Get = <T>(url: string, data?: object): Promise<T> => filterError<T>(url, "get", data)
-export const Post = <T>(url: string, data?: object): Promise<T> => filterError<T>(url, "post", data)
+export const Get = <T = any>(url: string, data?: object): Promise<T> => filterError<T>(url, "get", data)
+export const Post = <T = any>(url: string, data?: object): Promise<T> => filterError<T>(url, "post", data)
 

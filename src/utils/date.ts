@@ -94,3 +94,32 @@ export function getTime(type: string) {
     return new Date(new Date().toDateString())
   }
 }
+
+
+/**
+ * 倒计时
+ * @param timeStr 时间字符串
+ */
+export function countDown(timeStr): { hour: string, minute: string, second: string } {
+  let obj = { hour: '00', minute: '00', second: '00' }
+  //获取当前时间
+  var nowTime = Date.now();
+  var endTime = new Date(timeStr.replace(new RegExp(/-/gm), '/')).getTime()
+  if (nowTime > endTime) return obj
+  //获取时间差
+  var timediff = Math.round((endTime - nowTime) / 1000);
+
+  //获取还剩多少小时
+  var hour = ~~(timediff / 3600 % 24)
+  //获取还剩多少分钟
+  var minute = ~~(timediff / 60 % 60);
+  //获取还剩多少秒
+  var second = ~~(timediff % 60);
+
+  return Object.assign(obj, {
+    hour: String(hour).padStart(2, '0'),
+    minute: String(minute).padStart(2, '0'),
+    second: String(second).padStart(2, '0'),
+  })
+}
+
