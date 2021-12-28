@@ -58,7 +58,6 @@ export const request = async function <T>(url, method, data): Promise<T> {
   const config = generateRequestConfig(url, method, data)
   // console.log(config);
 
-
   return fetch(config.url, config.options).then(async response => {
     const text = await response.text();
     let json;
@@ -87,6 +86,7 @@ export const request = async function <T>(url, method, data): Promise<T> {
 
 async function filterError<T>(url, method, data): Promise<T> {
   return await request<T>(url, method, data).catch(error => {
+    console.log(error);
     Toast.show(error instanceof Error ? "服务器繁忙" : error)
     return new Promise(() => { })
   })
@@ -98,7 +98,8 @@ function generateRequestConfig(url, method, data) {
     "token": getToken()
   }
   const options = { method, headers, }
-  if (method.toLowerCase() === 'post') options['body'] = JSON.stringify(data)
+
+  if (method.toLowerCase() === 'post') (options['body'] = JSON.stringify(data), data = {})
   return { url: parseUrl(url, data), options, }
 }
 
