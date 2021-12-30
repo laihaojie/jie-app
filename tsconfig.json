@@ -7,7 +7,7 @@
         "module": "commonjs",
         "lib": ["es2017"],
         "allowJs": false,
-        "skipLibCheck": false,
+        "skipLibCheck": true,
         "esModuleInterop": false,
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,

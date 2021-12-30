@@ -1,10 +1,11 @@
 
 
+
 import { localGet } from './storage';
 import { getToken, store } from 'src/store';
 import actions from 'src/store/actions';
 import { baseUrl } from './constants';
-import Toast from 'react-native-root-toast';
+import Toast from 'react-native-simple-toast';
 
 interface RespData {
   code: number
@@ -12,10 +13,14 @@ interface RespData {
   message?: string
 }
 
-const request1 = async function <T>({ url, options }): Promise<T> {
-  const key = Symbol()
+const request = async function <T>(url, method, data): Promise<T> {
+  const errorKey = Symbol()
+  let controller = new AbortController();
+  let signal = controller.signal;
+  const config = generateRequestConfig(url, method, data)
+
   const res = await Promise.race([
-    fetch(url, options).then(async response => {
+    fetch(config.url, { signal, ...config.options }).then(async response => {
       const text = await response.text();
       let json;
       try {
@@ -26,8 +31,9 @@ const request1 = async function <T>({ url, options }): Promise<T> {
       }
       return json;
     })
-      .then(res => {
-        const data: RespData = res.data as any
+      .then((data: RespData) => {
+        // console.log(data);
+
         if (data.code == 1) return data.data
         if (data.code == 1000) return data
         if (!data.code) return data
@@ -37,23 +43,24 @@ const request1 = async function <T>({ url, options }): Promise<T> {
           return new Promise(() => { })
         }
         return Promise.reject(data.message)
-      })
-      .catch(error => {
-        Toast.show(error instanceof Error ? "服务器繁忙" : error)
-        return new Promise(() => { })
       }),
     new Promise(resolve => {
-      setTimeout(resolve, 10000, key)
+      setTimeout(() => {
+        resolve(errorKey)
+        return controller.abort()
+      }, 10000)
+
     })
   ])
-  if (res === key) {
+
+  if (res === errorKey) {
     Toast.show("请求超时")
     return new Promise(() => { })
   }
   return res
 }
 
-export const request = async function <T>(url, method, data): Promise<T> {
+export const request1 = async function <T>(url, method, data): Promise<T> {
 
   const config = generateRequestConfig(url, method, data)
   // console.log(config);
