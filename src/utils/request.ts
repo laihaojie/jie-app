@@ -1,7 +1,3 @@
-
-
-
-import { localGet } from './storage';
 import { getToken, store } from 'src/store';
 import actions from 'src/store/actions';
 import { baseUrl } from './constants';
@@ -13,7 +9,7 @@ interface RespData {
   message?: string
 }
 
-const request = async function <T>(url, method, data): Promise<T> {
+export const request = async function <T>(url, method, data): Promise<T> {
   const errorKey = Symbol()
   let controller = new AbortController();
   let signal = controller.signal;
@@ -58,37 +54,6 @@ const request = async function <T>(url, method, data): Promise<T> {
     return new Promise(() => { })
   }
   return res
-}
-
-export const request1 = async function <T>(url, method, data): Promise<T> {
-
-  const config = generateRequestConfig(url, method, data)
-  // console.log(config);
-
-  return fetch(config.url, config.options).then(async response => {
-    const text = await response.text();
-    let json;
-    try {
-      json = JSON.parse(text);
-    } catch (e) {
-      console.warn('RESP failed to parse: ', text);
-      throw e;
-    }
-    return json;
-  })
-    .then((data: RespData) => {
-      // console.log(data);
-
-      if (data.code == 1) return data.data
-      if (data.code == 1000) return data
-      if (!data.code) return data
-      if (data.code == 401) {
-        // 清除token
-        store.dispatch(actions.logout())
-        return new Promise(() => { })
-      }
-      return Promise.reject(data.message)
-    })
 }
 
 async function filterError<T>(url, method, data): Promise<T> {

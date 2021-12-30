@@ -6,9 +6,9 @@ import Icon from "react-native-vector-icons/AntDesign"
 import { screenWidth } from "src/utils/constants";
 import { Api } from "src/api";
 import { isEmpty, isMobile } from "src/utils";
-import Toast from 'react-native-root-toast';
 import { useDispatch } from "react-redux";
 import actions from "src/store/actions";
+import Toast from "react-native-simple-toast";
 
 const LoginScreen: FC<NativeStackHeaderProps> = () => {
   const dispatch = useDispatch()
@@ -44,7 +44,7 @@ const LoginScreen: FC<NativeStackHeaderProps> = () => {
       setTimes((val) => --val)
     }, 1000);
     Api.sendSms({ mobile, type: "register", }).then(res => {
-      Toast.show("发送成功", {})
+      Toast.show("发送成功")
     })
 
   }
