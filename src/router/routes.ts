@@ -16,14 +16,8 @@ export type MainStackParamList = {
 }
 
 export const routes = <RouteProps[]>[
-  {
-    name: "DetailScreen",
-    component: DetailScreen
-  },
-  {
-    name: "LoginScreen",
-    component: LoginScreen
-  },
+  { name: "DetailScreen", component: DetailScreen },
+  { name: "LoginScreen", component: LoginScreen },
 
 ]
 
