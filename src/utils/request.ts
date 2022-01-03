@@ -1,3 +1,4 @@
+import { navigate } from 'src/utils/navigationService';
 import { getToken, store } from 'src/store';
 import actions from 'src/store/actions';
 import { baseUrl } from './constants';
@@ -11,9 +12,10 @@ interface RespData {
 
 export const request = async function <T>(url, method, data): Promise<T> {
   const errorKey = Symbol()
-  let controller = new AbortController();
-  let signal = controller.signal;
+  const controller = new AbortController();
+  const signal = controller.signal;
   const config = generateRequestConfig(url, method, data)
+  let timer;
 
   const res = await Promise.race([
     fetch(config.url, { signal, ...config.options }).then(async response => {
@@ -29,6 +31,7 @@ export const request = async function <T>(url, method, data): Promise<T> {
     })
       .then((data: RespData) => {
         // console.log(data);
+        clearTimeout(timer)
 
         if (data.code == 1) return data.data
         if (data.code == 1000) return data
@@ -36,24 +39,20 @@ export const request = async function <T>(url, method, data): Promise<T> {
         if (data.code == 401) {
           // 清除token
           store.dispatch(actions.logout())
+          navigate("LoginScreen")
           return new Promise(() => { })
         }
         return Promise.reject(data.message)
       }),
     new Promise(resolve => {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         resolve(errorKey)
         return controller.abort()
       }, 10000)
 
     })
   ])
-
-  if (res === errorKey) {
-    Toast.show("请求超时")
-    return new Promise(() => { })
-  }
-  return res
+  return res === errorKey ? Promise.reject("请求超时") : res
 }
 
 async function filterError<T>(url, method, data): Promise<T> {
