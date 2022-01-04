@@ -1,13 +1,19 @@
-
 import React from 'react';
 import Routes from './router/Rooter';
 import { Provider } from "react-redux"
 import { persistor, store } from "./store"
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { RootSiblingParent } from 'react-native-root-siblings';
-import { StatusBar } from 'react-native';
+import { NativeModules, StatusBar } from 'react-native';
+import actions from './store/actions';
 
 const App = () => {
+
+  NativeModules.RNToolsManager.getAppVersion((version) => {
+    console.log(version);
+    store.dispatch(actions.setVersion(version))
+  })
+
   return (
     <Provider store={store}>
       <StatusBar translucent={true} backgroundColor="transparent" />
