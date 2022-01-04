@@ -28,22 +28,23 @@ export const request = async function <T>(url, method, data): Promise<T> {
         throw e;
       }
       return json;
-    })
-      .then((data: RespData) => {
-        // console.log(data);
-        clearTimeout(timer)
+    }).then((data: RespData) => {
+      // console.log(data);
+      clearTimeout(timer)
 
-        if (data.code == 1) return data.data
-        if (data.code == 1000) return data
-        if (!data.code) return data
-        if (data.code == 401) {
-          // 清除token
-          store.dispatch(actions.logout())
-          navigate("LoginScreen")
-          return new Promise(() => { })
-        }
-        return Promise.reject(data.message)
-      }),
+      if (data.code == 1) return data.data
+      if (data.code == 1000) return data
+      if (!data.code) return data
+      if (data.code == 401) {
+        // 清除token
+        store.dispatch(actions.logout())
+        navigate("LoginScreen")
+        return new Promise(() => { })
+      }
+      return Promise.reject(data.message)
+    }).catch(e => {
+      Toast.show(e)
+    }),
     new Promise(resolve => {
       timer = setTimeout(() => {
         resolve(errorKey)
