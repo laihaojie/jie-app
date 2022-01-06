@@ -25,7 +25,8 @@ export const request = async function <T>(url, method, data): Promise<T> {
         json = JSON.parse(text);
       } catch (e) {
         console.warn('RESP failed to parse: ', text);
-        throw e;
+        json = {}
+        // throw e;
       }
       return json;
     }).then((data: RespData) => {
@@ -53,6 +54,7 @@ export const request = async function <T>(url, method, data): Promise<T> {
 
     })
   ])
+  console.log({ ...config, Response: res });
   return res === errorKey ? Promise.reject("请求超时") : res
 }
 
