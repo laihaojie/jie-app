@@ -13,6 +13,9 @@ const App = () => {
     console.log(version);
     store.dispatch(actions.setVersion(version))
   })
+  NativeModules.RNToolsManager.getStrings(r => console.log(r))
+
+
 
   return (
     <Provider store={store}>

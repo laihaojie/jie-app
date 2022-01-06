@@ -52,4 +52,12 @@ public class RNToolsManager extends ReactContextBaseJavaModule {
             return info;
         }
     }
+
+    @ReactMethod
+    public void getStrings(Callback successCallback) {
+        successCallback.invoke("我是android 返回的字符串");
+    }
+
+
+
 }

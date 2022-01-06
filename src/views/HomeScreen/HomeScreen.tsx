@@ -34,7 +34,6 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
     },
     fileProviderAuthority: "com.jieapp.fileprovider",
 
-
     needUpdateApp: performUpdate => {
       console.log("开发更新版本号=================", version);
       Alert.alert(
@@ -83,10 +82,8 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
 
 
 
-  
-
   const [progressModalVisible, setProgressModalVisible] = useState(false)
-  
+
   useEffect(() => {
     updater.current.checkUpdate()
   }, [])
