@@ -13,8 +13,11 @@ const App = () => {
     console.log(version);
     store.dispatch(actions.setVersion(version))
   })
-  NativeModules.RNToolsManager.getStrings(r => console.log(r))
+    ; (async function () {
+      const res = await NativeModules.RNToolsManager.promiseMethod("22")
+      console.log(res);
 
+    })()
 
 
   return (

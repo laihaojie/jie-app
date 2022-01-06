@@ -3,10 +3,15 @@ package com.jieapp;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.uimanager.IllegalViewOperationException;
 
 public class RNToolsManager extends ReactContextBaseJavaModule {
@@ -23,7 +28,10 @@ public class RNToolsManager extends ReactContextBaseJavaModule {
         return "RNToolsManager";
     }
 
-    //    声明的方法，外界调用
+    /**
+     * 获取app版本号
+     * @param successCallback
+     */
     @ReactMethod
     public void getAppVersion(Callback successCallback) {
         try {
@@ -38,7 +46,7 @@ public class RNToolsManager extends ReactContextBaseJavaModule {
         }
     }
 
-    //    获取 APP 信息
+
     private PackageInfo getPackageInfo() {
         PackageManager manager = getReactApplicationContext().getPackageManager();
         PackageInfo info = null;
@@ -56,6 +64,27 @@ public class RNToolsManager extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getStrings(Callback successCallback) {
         successCallback.invoke("我是android 返回的字符串");
+    }
+
+
+
+    /**
+     * Promise方式
+     * @param name
+     * @param promise
+     */
+    @ReactMethod
+    public void promiseMethod(String name, Promise promise) {
+        WritableMap writableMap = new WritableNativeMap();
+
+        writableMap.putString("age","20");
+        writableMap.putString("time",Tools.TestString());
+
+        WritableMap map = Arguments.createMap();
+        map.putString("name","zhangsan");
+        writableMap.putMap("map", map);
+
+        promise.resolve(writableMap);
     }
 
 
