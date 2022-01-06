@@ -10,7 +10,7 @@ interface RespData {
   message?: string
 }
 
-export const request = async function <T>(url, method, data): Promise<T> {
+export const request = async function <T = any>(url, method, data): Promise<T> {
   const errorKey = Symbol()
   const controller = new AbortController();
   const signal = controller.signal;

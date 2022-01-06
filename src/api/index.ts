@@ -1,9 +1,7 @@
 import { UserInfo } from "src/typings";
-import { MyTask } from "src/typings/api";
 import { Get, Post, request } from "src/utils/request";
 
 export const Api = {
-  getGzhList: () => Get<Object>(`/api/app/gzh/articles`),
   getPolicy: () => Get<any>(`/api/Public/oss/policy`),
   // 检测更新
   getDevVersion: () => Get<any>(`/api/Public/dev/androidupload`),
@@ -15,6 +13,4 @@ export const Api = {
   // 获取用户信息
   getUserInfo: () => Get<UserInfo>(`/api/Account/info`),
 
-  // 获取任务列表
-  getMyTask: () => Get<MyTask>(`/api/Task/myTask`),
 }
