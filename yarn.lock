@@ -2417,9 +2417,9 @@ colorette@^1.0.7:
   integrity sha1-UZD7uHJ2JZqGrXAL/yxtb6o/ykA=
 
 colors@^1.1.2:
-  version "1.4.2"
-  resolved "https://registry.npmmirror.com/colors/download/colors-1.4.2.tgz#cd4fe227412ca2c75bb6f5683ec2e5e68de4f317"
-  integrity sha512-5QhJWPFZqkKIieXJPpCprdOytvH7v0AGWpu9K2jZ4LWkGg3dVBNoYPgGGRpEsc0jb8Boy0ElYrdjH9uXfhRSqw==
+  version "1.4.0"
+  resolved "https://registry.npmmirror.com/colors/download/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
+  integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
 
 combined-stream@^1.0.8:
   version "1.0.8"
@@ -7508,7 +7508,7 @@ ws@^7, ws@^7.4.6:
 xcode@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npmmirror.com/xcode/download/xcode-2.1.0.tgz#bab64a7e954bb50ca8d19da7e09531c65a43ecfe"
-  integrity sha1-urZKfpVLtQyo0Z2n4JUxxlpD7P4=
+  integrity sha512-uCrmPITrqTEzhn0TtT57fJaNaw8YJs1aCzs+P/QqxsDbvPZSv7XMPPwXrKvHtD6pLjBM/NaVwraWJm8q83Y4iQ==
   dependencies:
     simple-plist "^1.0.0"
     uuid "^3.3.2"

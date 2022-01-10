@@ -136,14 +136,13 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0.1"
-        vectorDrawables.useSupportLibrary = true  
     }
     splits {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
-            include "armeabi-v7a", "x86"
+            universalApk true  // If true, also generate a universal APK
+            include "armeabi-v7a", "x86" , "arm64-v8a", "x86_64"
         }
     }
     signingConfigs {
@@ -175,11 +174,6 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "jieapp.apk"
-                }
-            }
         }
     }
 
@@ -194,6 +188,9 @@ android {
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
                         defaultConfig.versionCode * 1000 + versionCodes.get(abi)
+            }
+            if (abi == "armeabi-v7a") {
+                output.outputFileName = "jieapp.apk"
             }
 
         }
