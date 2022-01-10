@@ -13,3 +13,7 @@ export type UserInfo = {
   nickName: string;
   apps: App[];
 };
+
+export type NativeData = {
+  aa: string
+}

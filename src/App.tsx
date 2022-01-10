@@ -9,17 +9,6 @@ import actions from './store/actions';
 
 const App = () => {
 
-  NativeModules.RNToolsManager.getAppVersion((version) => {
-    console.log(version);
-    store.dispatch(actions.setVersion(version))
-  })
-    ; (async function () {
-      const res = await NativeModules.RNToolsManager.promiseMethod("22")
-      console.log(res);
-
-    })()
-
-
   return (
     <Provider store={store}>
       <StatusBar translucent={true} backgroundColor="transparent" />

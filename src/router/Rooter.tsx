@@ -7,16 +7,17 @@ import HomeScreen from "../views/HomeScreen/HomeScreen"
 
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { ScreensParamList } from 'src/typings/router';
-import { Alert, Image, StyleSheet, ToastAndroid } from 'react-native';
+import { Alert, Image, NativeModules, StyleSheet, ToastAndroid } from 'react-native';
 import Icon from "react-native-vector-icons/AntDesign"
 
 import SplashScreen from 'react-native-splash-screen';
 import MyScreen from 'src/views/MyScreen/MyScreen';
 import { navigate, navRef } from 'src/utils/navigationService';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectToken } from 'src/store/selectors';
 import { isEmpty } from 'src/utils';
 import TestScreen from 'src/views/test';
+import actions from 'src/store/actions';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -32,7 +33,20 @@ export type TabParamList = {
 }
 
 const Routes: React.FC = function () {
-  React.useEffect(() => SplashScreen.hide(), []);
+  const dispatch = useDispatch()
+  const [isShow, setIsShow] = useState(false)
+
+  React.useEffect(() => {
+    (async function () {
+      const res = await NativeModules.RNToolsManager.promiseMethod("22")
+      dispatch(actions.setNativeData({ aa: "122211111" }))
+      SplashScreen.hide();
+      setIsShow(true)
+      console.log(res);
+    })()
+  }, []);
+
+
   const token = useSelector(selectToken)
 
   const check = (e) => {
@@ -46,41 +60,40 @@ const Routes: React.FC = function () {
 
   return (
     <SafeAreaProvider>
+      {
+        isShow &&
+        <NavigationContainer ref={navRef}>
+          <Stack.Navigator screenOptions={{ headerTitleAlign: "center", headerShown: false }} >
+            <Stack.Screen name="Home" options={{ headerShown: false }} >
+              {() => (
+                <Tab.Navigator
+                  initialRouteName="Analitics"
+                  screenOptions={({ route }) => ({
+                    headerTitleAlign: "center",
+                    tabBarIcon: ({ focused, color, size }) => getIcon(focused, route.name),
+                    tabBarActiveTintColor: '#58C2F0',
+                    tabBarInactiveTintColor: '#9E9E9E',
+                    headerShown: false,
+                  })}
+                >
+                  <Tab.Screen name="home" component={HomeScreen} options={{
+                    title: "首页",
+                  }} />
+                  <Tab.Screen name="test" component={TestScreen} options={{
+                    title: "test"
+                  }} />
 
-      <NavigationContainer ref={navRef}>
-        <Stack.Navigator screenOptions={{ headerTitleAlign: "center", headerShown: false }} >
-          <Stack.Screen name="Home" options={{ headerShown: false }} >
-            {() => (
-              <Tab.Navigator
-                initialRouteName="Analitics"
-                screenOptions={({ route }) => ({
-                  headerTitleAlign: "center",
-                  tabBarIcon: ({ focused, color, size }) => getIcon(focused, route.name),
-                  tabBarActiveTintColor: '#58C2F0',
-                  tabBarInactiveTintColor: '#9E9E9E',
-                  headerShown: false,
-                })}
-              >
-                <Tab.Screen name="home" component={HomeScreen} options={{
-                  title: "首页",
-                }} />
-                <Tab.Screen name="test" component={TestScreen} options={{
-                  title: "test"
-                }} />
+                  <Tab.Screen name="my" listeners={{ "tabPress": check }} component={MyScreen} />
+                </Tab.Navigator>
+              )}
+            </Stack.Screen>
+            {routes.map(item => (
+              <Stack.Screen {...item} key={item.name} />
+            ))}
 
-                <Tab.Screen name="my" listeners={{ "tabPress": check }} component={MyScreen} />
-              </Tab.Navigator>
-            )}
-          </Stack.Screen>
-          {routes.map(item => (
-            <Stack.Screen {...item} key={item.name} />
-          ))}
-
-        </Stack.Navigator>
-      </NavigationContainer>
-
-
-
+          </Stack.Navigator>
+        </NavigationContainer>
+      }
     </SafeAreaProvider>
   )
 }

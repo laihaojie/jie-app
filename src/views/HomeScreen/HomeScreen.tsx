@@ -1,24 +1,25 @@
 import { NativeStackHeaderProps } from "@react-navigation/native-stack"
 import React, { useCallback, useEffect, useRef, useState } from "react"
-import { Button, Text, View, TextInput, ScrollView, StatusBar, Modal, Alert, StyleSheet, TouchableOpacity, NativeModules } from "react-native"
+import { Text, ScrollView, Alert, StyleSheet, } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
-import { Api } from "src/api"
-import { selectToken, selectVersion } from "src/store/selectors"
-
+import { selectNativeData, selectToken, selectVersion } from "src/store/selectors"
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { screenHeight, screenWidth } from "src/utils/constants"
 import actions from "src/store/actions"
 import * as UpdateAPK from "rn-update-apk"
 import ProgressModal from "src/components/ShowModal/ProgressModal"
+import { store } from "src/store"
+import { useFocusEffect } from "@react-navigation/native"
 
 
 
 const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
   const token = useSelector(selectToken)
   const [progress, setProgress] = useState(0)
-  const [version, setVersion] = useState(useSelector(selectVersion))
+  const version = useSelector(selectVersion)
   const dispatch = useDispatch()
   const updater = useRef<any>(null)
+
 
   updater.current = new UpdateAPK.UpdateAPK({
 
@@ -56,7 +57,6 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
 
     notNeedUpdateApp: ({ devVersion }) => {
       dispatch(actions.setVersion(devVersion))
-      setVersion(devVersion)
     },
     downloadApkStart: () => {
       setProgressModalVisible(true)
@@ -71,7 +71,6 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
     downloadApkEnd: ({ devVersion }) => {
       setProgressModalVisible(false)
       dispatch(actions.setVersion(devVersion))
-      setVersion(devVersion)
     },
 
     onError: err => {
@@ -83,11 +82,25 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
 
 
   const [progressModalVisible, setProgressModalVisible] = useState(false)
-
+  useFocusEffect(
+    useCallback(() => {
+      console.log("kanjianl");
+    }, [])
+  )
   useEffect(() => {
+
+
     updater.current.checkUpdate()
   }, [])
 
+  React.useEffect(() => {
+    console.log(version);
+
+  }, [version])
+
+  // console.log(dayjs.utc().isUTC());
+  const nativeData = useSelector(selectNativeData)
+  console.log(store.getState());
 
 
   return (
@@ -101,6 +114,7 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
 
         <Text>首页</Text>
 
+        <Text>{JSON.stringify(nativeData)}</Text>
 
       </ScrollView>
     </SafeAreaView>
