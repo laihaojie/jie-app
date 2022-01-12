@@ -6,7 +6,7 @@ import { selectNativeData, selectToken, selectVersion } from "src/store/selector
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { screenHeight, screenWidth } from "src/utils/constants"
 import actions from "src/store/actions"
-import * as UpdateAPK from "jie-rn-update-apk"
+import UpdateAPK from "jie-rn-update-apk"
 import ProgressModal from "src/components/ShowModal/ProgressModal"
 import { store } from "src/store"
 import { useFocusEffect } from "@react-navigation/native"
@@ -21,7 +21,7 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
   const updater = useRef<any>(null)
 
 
-  updater.current = new UpdateAPK.UpdateAPK({
+  updater.current = new UpdateAPK({
 
     apkVersionUrl: `https://api.huihuizi.top/api/public/androidVersion`,
     devVersion: version,
@@ -38,7 +38,7 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
     needUpdateApp: performUpdate => {
       console.log("开发更新版本号=================", version);
       Alert.alert(
-        "有新版本",
+        "有一个新的版本",
         "新版本发布",
         [
           { text: "取消", onPress: () => { } },
@@ -88,8 +88,6 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
     }, [])
   )
   useEffect(() => {
-
-
     updater.current.checkUpdate()
   }, [])
 
