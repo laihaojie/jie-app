@@ -4462,6 +4462,14 @@ jetifier@^1.6.2:
   resolved "https://registry.nlark.com/jetifier/download/jetifier-1.6.8.tgz#e88068697875cbda98c32472902c4d3756247798"
   integrity sha1-6IBoaXh1y9qYwyRykCxNN1Ykd5g=
 
+jie-rn-update-apk@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmmirror.com/jie-rn-update-apk/download/jie-rn-update-apk-5.0.0.tgz#232a7581f93c2ecf3ecaa9181453c9a48ad5524b"
+  integrity sha512-fbO38p7KdTHetmq17aP8tYCGitNHVhTInH0Y2cGfwEbRXeleDPwBYcBc0HAbB+kPo6MCzVXmm/SUFDQpc0RpoA==
+  dependencies:
+    react-native-fs "^2.16.6"
+    semver "^7.3.5"
+
 joi@^17.2.1:
   version "17.5.0"
   resolved "https://registry.npmmirror.com/joi/download/joi-17.5.0.tgz#7e66d0004b5045d971cf416a55fb61d33ac6e011"
@@ -6365,13 +6373,6 @@ rimraf@~2.6.2:
   integrity sha1-stEE/g2Psnz54KHNqCYt04M8bKs=
   dependencies:
     glob "^7.1.3"
-
-"rn-update-apk@git://github.com/laihaojie/react-native-update-apk.git":
-  version "5.0.0"
-  resolved "git://github.com/laihaojie/react-native-update-apk.git#c9e99694468c12c4d7454fa89f5e36a738c00ec1"
-  dependencies:
-    react-native-fs "^2.16.6"
-    semver "^7.3.5"
 
 rsvp@^4.8.4:
   version "4.8.5"

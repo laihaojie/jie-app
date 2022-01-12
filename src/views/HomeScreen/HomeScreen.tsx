@@ -6,7 +6,7 @@ import { selectNativeData, selectToken, selectVersion } from "src/store/selector
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { screenHeight, screenWidth } from "src/utils/constants"
 import actions from "src/store/actions"
-import * as UpdateAPK from "rn-update-apk"
+import * as UpdateAPK from "jie-rn-update-apk"
 import ProgressModal from "src/components/ShowModal/ProgressModal"
 import { store } from "src/store"
 import { useFocusEffect } from "@react-navigation/native"
