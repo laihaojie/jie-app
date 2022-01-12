@@ -44,7 +44,7 @@
         "redux-thunk": "^2.4.0",
         "redux-type-actions": "^1.1.0",
         "reselect": "^4.1.2",
-        "jie-rn-update-apk": "^5.0.1"
+        "jie-rn-update-apk": "^5.0.2"
     },
     "devDependencies": {
         "@babel/core": "^7.12.9",
