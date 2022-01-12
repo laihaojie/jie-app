@@ -4462,10 +4462,10 @@ jetifier@^1.6.2:
   resolved "https://registry.nlark.com/jetifier/download/jetifier-1.6.8.tgz#e88068697875cbda98c32472902c4d3756247798"
   integrity sha1-6IBoaXh1y9qYwyRykCxNN1Ykd5g=
 
-jie-rn-update-apk@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.npmmirror.com/jie-rn-update-apk/download/jie-rn-update-apk-5.0.0.tgz#232a7581f93c2ecf3ecaa9181453c9a48ad5524b"
-  integrity sha512-fbO38p7KdTHetmq17aP8tYCGitNHVhTInH0Y2cGfwEbRXeleDPwBYcBc0HAbB+kPo6MCzVXmm/SUFDQpc0RpoA==
+jie-rn-update-apk@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.npmmirror.com/jie-rn-update-apk/download/jie-rn-update-apk-5.0.1.tgz#275af276dab5550da08fae52904fae63c346e206"
+  integrity sha512-lLUrSfsoLVCH8RZL+IZiqHV5Mdx4RxMVPV7TOZKNI6J7/VTkJxiSnMpML/bqKNUtgBqMrZfccB8ecrng3wtKTA==
   dependencies:
     react-native-fs "^2.16.6"
     semver "^7.3.5"
