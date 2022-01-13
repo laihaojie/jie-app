@@ -43,7 +43,7 @@ const LoginScreen: FC<NativeStackHeaderProps> = () => {
 
       <Image style={styles.logo}
         resizeMode="center"
-        source={{ uri: "https://s.lingman.tech/taohupai/images/logo-blue1.png" }}></Image>
+        source={{ uri: "https://s.huihuizi.top/public/images/zjNJnTsBiN6xk6P.jpg" }}></Image>
       <View style={styles.inputBox}>
         <Icon name="phone" size={20} color="#ccc"></Icon>
         <TextInput
