@@ -58,6 +58,7 @@ const LoginScreen: FC<NativeStackHeaderProps> = () => {
         <Icon name="eyeo" size={20} color="#ccc"></Icon>
         <TextInput
           style={styles.input}
+          keyboardType="numeric"
           placeholder="请输入密码"
           onChangeText={setPassword}
           value={password}
