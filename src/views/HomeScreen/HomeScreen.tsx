@@ -19,6 +19,7 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
   const version = useSelector(selectVersion)
   const dispatch = useDispatch()
   const updater = useRef<any>(null)
+  console.log(token);
 
 
   updater.current = new UpdateAPK({
@@ -98,8 +99,6 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
 
   // console.log(dayjs.utc().isUTC());
   const nativeData = useSelector(selectNativeData)
-  console.log(store.getState());
-
 
   return (
 

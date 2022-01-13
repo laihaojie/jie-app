@@ -8,9 +8,10 @@ export const Api = {
   // 发送验证码
   sendSms: (data) => Post(`/api/Public/api/public/send_sms`, data),
   // 登录
-  login: (data) => request<string>(`/api/Account/login`, "post", data),
+  login: (data) => request<string>(`/api/account/login`, "post", data),
 
   // 获取用户信息
-  getUserInfo: () => Get<UserInfo>(`/api/Account/info`),
+  getUserInfo: () => Get<UserInfo>(`/api/account/info`),
+
 
 }

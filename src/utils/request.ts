@@ -17,6 +17,8 @@ export const request = async function <T = any>(url, method, data): Promise<T> {
   const config = generateRequestConfig(url, method, data)
   let timer;
 
+
+
   const res = await Promise.race([
     fetch(config.url, { signal, ...config.options }).then(async response => {
       const text = await response.text();
@@ -32,7 +34,6 @@ export const request = async function <T = any>(url, method, data): Promise<T> {
     }).then((data: RespData) => {
       // console.log(data);
       clearTimeout(timer)
-
       if (data.code == 1) return data.data
       if (data.code == 1000) return data
       if (!data.code) return data
@@ -62,7 +63,7 @@ async function filterError<T>(url, method, data): Promise<T> {
   return await request<T>(url, method, data).catch(error => {
     console.log(error);
     Toast.show(error instanceof Error ? "服务器繁忙" : error)
-    return new Promise(() => { })
+    return Promise.reject("")
   })
 }
 
