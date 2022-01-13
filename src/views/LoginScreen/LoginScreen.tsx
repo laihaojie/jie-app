@@ -13,12 +13,10 @@ import { selectToken } from "src/store/selectors";
 
 const LoginScreen: FC<NativeStackHeaderProps> = () => {
   const dispatch = useDispatch()
-  const [account, setAccount] = useState("admin")
-  const [password, setPassword] = useState("523523")
+  const [account, setAccount] = useState("")
+  const [password, setPassword] = useState("")
   const [disabled, setDisabled] = useState(false)
   const [disabledLogin, setDisabledLogin] = useState(false)
-
-  const token = useSelector(selectToken)
 
 
 
@@ -29,10 +27,8 @@ const LoginScreen: FC<NativeStackHeaderProps> = () => {
     Api.login({ account, password }).then(async res => {
       setDisabledLogin(false)
       dispatch(actions.setToken(res))
-      // const user = await Api.getUserInfo()
-     
-      // dispatch(actions.setUser(user))
-      // navigate("home")
+      const user = await Api.getUserInfo()
+      dispatch(actions.setUser(user))
     }).catch(e => {
       Toast.show(e)
       setDisabledLogin(false)
@@ -48,7 +44,6 @@ const LoginScreen: FC<NativeStackHeaderProps> = () => {
       <Image style={styles.logo}
         resizeMode="center"
         source={{ uri: "https://s.lingman.tech/taohupai/images/logo-blue1.png" }}></Image>
-      <Text>{token}</Text>
       <View style={styles.inputBox}>
         <Icon name="phone" size={20} color="#ccc"></Icon>
         <TextInput

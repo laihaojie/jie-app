@@ -19,7 +19,7 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
   const version = useSelector(selectVersion)
   const dispatch = useDispatch()
   const updater = useRef<any>(null)
-  console.log(token);
+  // console.log(token);
 
 
   updater.current = new UpdateAPK({
@@ -83,18 +83,13 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
 
 
   const [progressModalVisible, setProgressModalVisible] = useState(false)
-  useFocusEffect(
-    useCallback(() => {
-      console.log("kanjianl");
-    }, [])
-  )
-  useEffect(() => {
+
+  React.useEffect(() => {
     updater.current.checkUpdate()
   }, [])
 
   React.useEffect(() => {
     console.log(version);
-
   }, [version])
 
   // console.log(dayjs.utc().isUTC());

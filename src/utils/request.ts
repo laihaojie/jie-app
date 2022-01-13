@@ -18,7 +18,6 @@ export const request = async function <T = any>(url, method, data): Promise<T> {
   let timer;
 
 
-
   const res = await Promise.race([
     fetch(config.url, { signal, ...config.options }).then(async response => {
       const text = await response.text();
@@ -70,7 +69,7 @@ async function filterError<T>(url, method, data): Promise<T> {
 function generateRequestConfig(url, method, data) {
   const headers = {
     'Content-Type': 'application/json',
-    "token": getToken()
+    "authorization": getToken()
   }
   const options = { method, headers, }
 
