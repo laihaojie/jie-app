@@ -1,7 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import React, { FC, useCallback } from "react";
-import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Api } from "src/api";
 import { Task } from "src/typings/api";
@@ -9,6 +9,7 @@ import Icon from "react-native-vector-icons/Entypo"
 import { screenWidth } from "src/utils/constants";
 import { ButtonGroup, Tab, TabView } from "react-native-elements";
 import ActionSheetModal from "src/components/ShowModal/ActionSheetModal";
+import Toast from "react-native-simple-toast";
 
 export default function TaskScreen() {
   let isMounted = true
@@ -17,6 +18,9 @@ export default function TaskScreen() {
   const [index, setIndex] = React.useState(0);
   const [showVisible, setShowVisible] = React.useState(false)
   const [curTask, setCurTask] = React.useState<Task>({} as Task)
+  const [isEdit, setIsEdit] = React.useState(false)
+  const inp = React.useRef<TextInput>(null)
+  const [text, setText] = React.useState("")
 
   useFocusEffect(
     useCallback(() => {
@@ -24,6 +28,11 @@ export default function TaskScreen() {
     }, [index]),
   );
 
+  React.useEffect(() => {
+    if (isEdit) {
+      inp.current?.focus()
+    }
+  }, [isEdit])
 
   React.useEffect(() => {
     return () => { isMounted = false }
@@ -60,7 +69,44 @@ export default function TaskScreen() {
         renderItem={({ item }) =>
 
           <View style={styles.item}>
-            <Text style={styles.text}>{item.task}</Text>
+            {
+              (curTask.id == item.id && isEdit) ?
+                <TextInput
+                  style={styles.input}
+                  ref={inp}
+                  placeholder={curTask.task}
+                  onChangeText={setText}
+                  onBlur={() => {
+                    if (curTask.task == text) return setIsEdit(false)
+                    Alert.alert("提示", "确定要保存吗", [
+                      {
+                        text: "取消", onPress: () => {
+                          setCurTask({} as Task)
+                          setIsEdit(false)
+                        }
+                      },
+                      {
+                        text: "保存", onPress: async () => {
+                          await Api.updateTask({ id: curTask.id, task: text })
+                          Toast.show("保存成功")
+                          loadData()
+                          setIsEdit(false)
+                        }
+                      }
+                    ])
+
+                  }}
+                  value={text}
+                ></TextInput> :
+                <Text style={styles.text} onLongPress={() => {
+                  setCurTask({ ...item })
+                  setText(item.task)
+                  setIsEdit(true)
+                }}>{item.task}</Text>
+            }
+
+
+
             <TouchableOpacity style={styles.right} onPress={() => {
               setCurTask({ ...item })
               setShowVisible(true)
@@ -80,20 +126,25 @@ export default function TaskScreen() {
       {showVisible && <ActionSheetModal
         onClose={setShowVisible}
         list={[
-          { title: "编辑", onPress: () => { } },
           { title: "待处理", onPress: () => { } },
           { title: "完成", onPress: () => { } },
           { title: "删除", onPress: () => { } },
         ]} operates={[
-          { title: "取消", onPress: () => { setShowVisible(false) } },
+          { title: "取消", onPress: () => (setShowVisible(false), setIsEdit(false)) },
         ]} />}
 
-    </SafeAreaView>
+    </SafeAreaView >
   );
 }
 
 const styles = StyleSheet.create({
-
+  input: {
+    flex: 1,
+    color: "black",
+    fontSize: 18,
+    marginHorizontal: 16,
+    fontWeight: "bold",
+  },
   right: {
     width: 32,
     height: 32,
@@ -104,8 +155,8 @@ const styles = StyleSheet.create({
     flex: 1,
     color: "black",
     fontSize: 18,
-    fontWeight: "bold",
     marginHorizontal: 16,
+    fontWeight: "bold",
   },
   item: {
     flex: 1,
