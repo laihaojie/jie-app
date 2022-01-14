@@ -7,7 +7,7 @@ import { Api } from "src/api";
 import { Task } from "src/typings/api";
 import Icon from "react-native-vector-icons/Entypo"
 import { screenWidth } from "src/utils/constants";
-import { Tab, TabView } from "react-native-elements";
+import { ButtonGroup, Tab, TabView } from "react-native-elements";
 
 export default function TaskScreen() {
   let isMounted = true
@@ -44,12 +44,15 @@ export default function TaskScreen() {
         style={{ width: screenWidth, }}
         ListHeaderComponent={
           <>
-            <Tab value={index} onChange={setIndex} >
-              <Tab.Item title="全部" />
-              <Tab.Item title="已完成" />
-              <Tab.Item title="待处理" />
-              <Tab.Item title="已删除" />
-            </Tab>
+            <ButtonGroup
+              buttons={['全部', '已完成', '待处理', '已删除']}
+
+              selectedIndex={index}
+              onPress={setIndex}
+              containerStyle={{}}
+              selectedButtonStyle={{ backgroundColor: "#2196F3" }}
+            />
+
           </>
         }
         renderItem={({ item }) =>

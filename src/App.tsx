@@ -11,7 +11,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <StatusBar translucent={true} backgroundColor="transparent" />
+      <StatusBar translucent={true} backgroundColor="#2196F3" />
       <PersistGate loading={null} persistor={persistor}>
         <RootSiblingParent>
           <Routes />

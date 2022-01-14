@@ -110,7 +110,7 @@ const Routes: React.FC = function () {
                       screenOptions={({ route }) => ({
                         headerTitleAlign: "center",
                         tabBarIcon: ({ focused, color, size }) => getIcon(focused, route.name),
-                        tabBarActiveTintColor: '#58C2F0',
+                        tabBarActiveTintColor: '#2196F3',
                         tabBarInactiveTintColor: '#9E9E9E',
                         headerShown: false,
                       })}
@@ -125,7 +125,9 @@ const Routes: React.FC = function () {
                         title: "test"
                       }} />
 
-                      <Tab.Screen name="my" listeners={{ "tabPress": check }} component={MyScreen} />
+                      <Tab.Screen name="my" listeners={{ "tabPress": check }} component={MyScreen} options={{
+                        title: "我的"
+                      }} />
                     </Tab.Navigator>
                   )}
                 </Stack.Screen>
@@ -161,18 +163,10 @@ const styles = StyleSheet.create({
 
 function getIcon(focused: boolean, name: string) {
   return {
-    "home": focused ? <Image style={styles.icon} source={require('../assets/image/activehome.png')} /> :
-      <Image style={styles.icon} source={require('../assets/image/home.png')} />,
-    "test": focused ? <Image style={styles.icon} source={require('../assets/image/activehome.png')} /> :
-      <Image style={styles.icon} source={require('../assets/image/home.png')} />,
-    "task": focused ? <Image style={styles.icon} source={require('../assets/image/activetask.png')} /> :
-      <Image style={styles.icon} source={require('../assets/image/task.png')} />,
-    "help": focused ? <Image style={styles.icon} source={require('../assets/image/activehelp.png')} /> :
-      <Image style={styles.icon} source={require('../assets/image/help.png')} />,
-    "product": focused ? <Image style={styles.icon} source={require('../assets/image/activeproduct.png')} /> :
-      <Image style={styles.icon} source={require('../assets/image/product.png')} />,
-    "my": focused ? <Image style={styles.icon} source={require('../assets/image/activemy.png')} /> :
-      <Image style={styles.icon} source={require('../assets/image/my.png')} />,
+    "home": <Icon name='meh' size={30} color={focused ? "#2196F3" : "#999999"} />,
+    "test": <Icon name='lock1' size={30} color={focused ? "#2196F3" : "#999999"} />,
+    "task": <Icon name='bars' size={30} color={focused ? "#2196F3" : "#999999"} />,
+    "my": <Icon name='user' size={30} color={focused ? "#2196F3" : "#999999"} />,
   }[name]
 }
 
