@@ -7,7 +7,7 @@ import { screenHeight, screenWidth } from "src/utils/constants";
 
 interface IProps {
   onClose: Function,
-  list: { title: string, onPress: Function }[]
+  list: { title: string, onPress: Function, disabled?: boolean, show?: boolean }[]
   operates?: { title: string, onPress: Function }[]
 }
 
@@ -36,8 +36,9 @@ export default function ActionSheetModal({ onClose, list, operates }: IProps) {
         </TouchableOpacity>
         {
           list?.map((item, idx) => (
-            <TouchableOpacity
+            (item.show ?? true) && <TouchableOpacity
               key={idx}
+              disabled={item.disabled ?? false}
               style={[styles.item, list.length != idx - 1 && { borderBottomWidth: 1 }]}
               activeOpacity={0.8}
               onPress={() => {

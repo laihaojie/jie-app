@@ -56,6 +56,11 @@ export default function TaskScreen() {
     loadData()
   }
 
+  const changeStatus = async (status) => {
+    await Api.updateTask({ id: curTask.id, status })
+    loadData()
+    Toast.show('修改成功')
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} edges={['top', 'left', 'right']}>
@@ -144,9 +149,26 @@ export default function TaskScreen() {
       {showVisible && <ActionSheetModal
         onClose={setShowVisible}
         list={[
-          { title: "待处理", onPress: () => { } },
-          { title: "完成", onPress: () => { } },
-          { title: "删除", onPress: () => { } },
+          { title: "完成", onPress: () => changeStatus(2), show: index != 1 },
+          { title: "撤回", onPress: () => changeStatus(1), show: index != 0 },
+          { title: "待处理", onPress: () => changeStatus(3), show: index != 2 },
+          {
+            title: "删除", onPress: () => {
+              Alert.alert("提示", "您确定要删除吗?", [
+                {
+                  text: "取消", onPress: () => {
+                    setCurTask({} as Task)
+                    setIsEdit(false)
+                  }
+                },
+                {
+                  text: "确定", onPress: () => {
+                    changeStatus(0)
+                  }
+                }
+              ])
+            }, show: index != 3
+          },
         ]} operates={[
           { title: "取消", onPress: () => (setShowVisible(false), setIsEdit(false)) },
         ]} />}
