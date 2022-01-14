@@ -8,12 +8,15 @@ import { Task } from "src/typings/api";
 import Icon from "react-native-vector-icons/Entypo"
 import { screenWidth } from "src/utils/constants";
 import { ButtonGroup, Tab, TabView } from "react-native-elements";
+import ActionSheetModal from "src/components/ShowModal/ActionSheetModal";
 
 export default function TaskScreen() {
   let isMounted = true
 
   const [list, setList] = React.useState<Task[]>([])
   const [index, setIndex] = React.useState(0);
+  const [showVisible, setShowVisible] = React.useState(false)
+  const [curTask, setCurTask] = React.useState<Task>({} as Task)
 
   useFocusEffect(
     useCallback(() => {
@@ -46,7 +49,6 @@ export default function TaskScreen() {
           <>
             <ButtonGroup
               buttons={['全部', '已完成', '待处理', '已删除']}
-
               selectedIndex={index}
               onPress={setIndex}
               containerStyle={{}}
@@ -59,7 +61,10 @@ export default function TaskScreen() {
 
           <View style={styles.item}>
             <Text style={styles.text}>{item.task}</Text>
-            <TouchableOpacity style={styles.right}>
+            <TouchableOpacity style={styles.right} onPress={() => {
+              setCurTask({ ...item })
+              setShowVisible(true)
+            }}>
               <Icon name="dots-three-vertical" style={{ fontSize: 20, }} />
             </TouchableOpacity>
 
@@ -72,7 +77,16 @@ export default function TaskScreen() {
       />
 
 
-
+      {showVisible && <ActionSheetModal
+        onClose={setShowVisible}
+        list={[
+          { title: "编辑", onPress: () => { } },
+          { title: "待处理", onPress: () => { } },
+          { title: "完成", onPress: () => { } },
+          { title: "删除", onPress: () => { } },
+        ]} operates={[
+          { title: "取消", onPress: () => { setShowVisible(false) } },
+        ]} />}
 
     </SafeAreaView>
   );

@@ -1,18 +1,17 @@
 
 
-import React, { FC, useEffect, useState } from "react";
-import { Image, ImageBackground, Modal, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { LinearProgress } from "react-native-elements";
-import Icon from "react-native-vector-icons/AntDesign";
+import React, { useEffect, useState } from "react";
+import { Modal, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { isEmpty } from "src/utils";
 import { screenHeight, screenWidth } from "src/utils/constants";
-import { navigate } from "src/utils/navigationService";
 
 interface IProps {
   onClose: Function,
   list: { title: string, onPress: Function }[]
+  operates?: { title: string, onPress: Function }[]
 }
 
-export default function ActionSheet({ onClose, list }: IProps) {
+export default function ActionSheetModal({ onClose, list, operates }: IProps) {
   const [modalVisible, setModalVisible] = useState(true);
   useEffect(() => {
     if (!modalVisible) {
@@ -32,17 +31,35 @@ export default function ActionSheet({ onClose, list }: IProps) {
     >
       <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0.7)" />
 
-
-
-
       <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.7)", justifyContent: "flex-end", }}>
+        <TouchableOpacity style={styles.topEmpty} onPress={() => setModalVisible(false)}>
+        </TouchableOpacity>
         {
           list?.map((item, idx) => (
             <TouchableOpacity
               key={idx}
               style={[styles.item, list.length != idx - 1 && { borderBottomWidth: 1 }]}
               activeOpacity={0.8}
-              onPress={() => item.onPress()}
+              onPress={() => {
+                item.onPress && item.onPress()
+                setModalVisible(false);
+              }}
+            >
+              <Text style={{ color: "#333", fontSize: 16, }}>{item.title}</Text>
+            </TouchableOpacity>
+          ))
+        }
+        {!isEmpty(operates) && <View style={{ width: screenWidth, height: 4, backgroundColor: "#e5e5e5" }}></View>}
+        {
+          operates?.map((item, idx) => (
+            <TouchableOpacity
+              key={idx}
+              style={[styles.item, list.length != idx - 1 && { borderBottomWidth: 1 }]}
+              activeOpacity={0.8}
+              onPress={() => {
+                item.onPress && item.onPress()
+                setModalVisible(false);
+              }}
             >
               <Text style={{ color: "#333", fontSize: 16, }}>{item.title}</Text>
             </TouchableOpacity>
@@ -75,12 +92,9 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     position: "relative",
   },
-  modalView: {
-    width: screenWidth,
-    height: screenHeight,
-    backgroundColor: "rgba(0,0,0,0.7)",
-    alignItems: "center",
-    justifyContent: "center",
+  topEmpty: {
+    width: "100%",
+    height: "100%",
   },
 })
 
