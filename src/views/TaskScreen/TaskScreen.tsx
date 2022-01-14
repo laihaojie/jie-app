@@ -7,24 +7,27 @@ import { Api } from "src/api";
 import { Task } from "src/typings/api";
 import Icon from "react-native-vector-icons/Entypo"
 import { screenWidth } from "src/utils/constants";
+import { Tab, TabView } from "react-native-elements";
 
 export default function TaskScreen() {
   let isMounted = true
 
   const [list, setList] = React.useState<Task[]>([])
+  const [index, setIndex] = React.useState(0);
 
   useFocusEffect(
     useCallback(() => {
       loadData()
-    }, []),
+    }, [index]),
   );
+
 
   React.useEffect(() => {
     return () => { isMounted = false }
   }, [])
 
   const loadData = async () => {
-    const res = await Api.getTaskList({ status: 1 })
+    const res = await Api.getTaskList({ status: index + 1 })
     if (isMounted) {
       setList([...res])
     }
@@ -34,37 +37,40 @@ export default function TaskScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} edges={['top', 'left', 'right']}>
-      <ScrollView>
-
-        <FlatList<Task>
-          data={list}
-          style={{ width: screenWidth, }}
-          ListHeaderComponent={
-            <>
-
-              <Text style={styles.title}>添加</Text>
-
-            </>
-          }
-          renderItem={({ item }) =>
-
-            <View style={styles.item}>
-              <Text style={styles.text}>{item.task}</Text>
-              <TouchableOpacity style={styles.right}>
-                <Icon name="dots-three-vertical" style={{ fontSize: 20, }} />
-              </TouchableOpacity>
-
-            </View>
 
 
+      <FlatList<Task>
+        data={list}
+        style={{ width: screenWidth, }}
+        ListHeaderComponent={
+          <>
+            <Tab value={index} onChange={setIndex} >
+              <Tab.Item title="全部" />
+              <Tab.Item title="已完成" />
+              <Tab.Item title="待处理" />
+              <Tab.Item title="已删除" />
+            </Tab>
+          </>
+        }
+        renderItem={({ item }) =>
 
-          }
-          keyExtractor={item => item.id}
-        />
+          <View style={styles.item}>
+            <Text style={styles.text}>{item.task}</Text>
+            <TouchableOpacity style={styles.right}>
+              <Icon name="dots-three-vertical" style={{ fontSize: 20, }} />
+            </TouchableOpacity>
+
+          </View>
 
 
 
-      </ScrollView>
+        }
+        keyExtractor={item => item.id}
+      />
+
+
+
+
     </SafeAreaView>
   );
 }
