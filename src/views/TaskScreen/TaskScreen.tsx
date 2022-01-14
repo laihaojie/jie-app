@@ -1,9 +1,33 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { NativeStackHeaderProps } from "@react-navigation/native-stack";
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Api } from "src/api";
+import { Task } from "src/typings/api";
 
 export default function TaskScreen() {
+  let isMounted = true
+
+  const [list, setList] = React.useState<Task[]>([])
+
+  useFocusEffect(
+    useCallback(() => {
+      loadData()
+    }, []),
+  );
+
+  React.useEffect(() => {
+    return () => { isMounted = false }
+  }, [])
+
+  const loadData = async () => {
+    const res = await Api.getTaskList({ status: 1 })
+    if (isMounted) {
+      setList([...res])
+    }
+
+  }
 
 
   return (
