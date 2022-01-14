@@ -26,3 +26,11 @@ export interface Policy {
   dir: string
 }
 
+
+export interface Task {
+  id: string
+  task: string
+  isSelected: boolean
+  status: number
+}
+

@@ -20,6 +20,7 @@ import TestScreen from 'src/views/test';
 import actions from 'src/store/actions';
 import Toast from 'react-native-simple-toast';
 import LoginScreen from 'src/views/LoginScreen/LoginScreen';
+import TaskScreen from 'src/views/TaskScreen/TaskScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -116,6 +117,9 @@ const Routes: React.FC = function () {
                     >
                       <Tab.Screen name="home" component={HomeScreen} options={{
                         title: "首页",
+                      }} />
+                      <Tab.Screen name="task" component={TaskScreen} options={{
+                        title: "事件代办",
                       }} />
                       <Tab.Screen name="test" component={TestScreen} options={{
                         title: "test"
