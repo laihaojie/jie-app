@@ -1,7 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import React, { FC, useCallback } from "react";
-import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Button, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Api } from "src/api";
 import { Task } from "src/typings/api";
@@ -10,6 +10,7 @@ import { screenWidth } from "src/utils/constants";
 import { ButtonGroup, Tab, TabView } from "react-native-elements";
 import ActionSheetModal from "src/components/ShowModal/ActionSheetModal";
 import Toast from "react-native-simple-toast";
+import { isEmpty } from "src/utils";
 
 export default function TaskScreen() {
   let isMounted = true
@@ -46,6 +47,15 @@ export default function TaskScreen() {
 
   }
 
+  const save = async () => {
+    if (isEmpty(text.trim())) return Toast.show("任务不能为空")
+    await Api.createTask({ task: text })
+    Toast.show('保存成功')
+    setText("")
+    setIndex(0)
+    loadData()
+  }
+
 
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} edges={['top', 'left', 'right']}>
@@ -56,12 +66,20 @@ export default function TaskScreen() {
         style={{ width: screenWidth, }}
         ListHeaderComponent={
           <>
+            <View style={styles.topBox}>
+              <TextInput style={styles.topInp}
+                onChangeText={setText}
+                value={isEdit ? "" : text}
+              />
+              <TouchableOpacity style={styles.topBtn} activeOpacity={.6} onPress={save}>
+                <Text>保存</Text>
+              </TouchableOpacity>
+            </View>
             <ButtonGroup
               buttons={['全部', '已完成', '待处理', '已删除']}
               selectedIndex={index}
               onPress={setIndex}
-              containerStyle={{}}
-              selectedButtonStyle={{ backgroundColor: "#2196F3" }}
+              selectedButtonStyle={{ backgroundColor: "#2196F3", borderRadius: 2, }}
             />
 
           </>
@@ -77,7 +95,7 @@ export default function TaskScreen() {
                   placeholder={curTask.task}
                   onChangeText={setText}
                   onBlur={() => {
-                    if (curTask.task == text) return setIsEdit(false)
+                    if (curTask.task == text) return (setIsEdit(false), setText(""))
                     Alert.alert("提示", "确定要保存吗", [
                       {
                         text: "取消", onPress: () => {
@@ -138,6 +156,31 @@ export default function TaskScreen() {
 }
 
 const styles = StyleSheet.create({
+  topBox: {
+    height: 56,
+    width: screenWidth,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#2196F3",
+    paddingHorizontal: 10,
+  },
+  topBtn: {
+    width: 50,
+    height: 38,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 6,
+  },
+  topInp: {
+    flex: 1,
+    height: 38,
+    backgroundColor: "#fff",
+    borderRadius: 18,
+    marginRight: 16,
+    paddingHorizontal: 14,
+  },
   input: {
     flex: 1,
     color: "black",
