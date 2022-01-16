@@ -12,7 +12,6 @@ import Toast from "react-native-simple-toast";
 import ActionSheetModal from "src/components/ShowModal/ActionSheetModal";
 import UpdateAPK from "jie-rn-update-apk"
 import ProgressModal from "src/components/ShowModal/ProgressModal";
-import Wss from "jie-ws"
 import { socketUrl } from "src/utils/constants";
 
 
@@ -88,22 +87,6 @@ export default function TestScreen({ navigation }) {
 
     , [])
 
-  const ws = new Wss(`${socketUrl}`)
-
-  ws.onopen = () => {
-    console.log("connect: ok " + socketUrl);
-  }
-
-  ws.on('test', (data) => {
-
-    console.log(data);
-
-  })
-
-  React.useEffect(() => {
-    return () => ws.close()
-  }, [])
-
 
   return (
 
@@ -118,7 +101,7 @@ export default function TestScreen({ navigation }) {
         <Button title="重启JS" onPress={() => DevSettings.reload()} />
         <Button title="下载到最新版" onPress={() => updater.checkUpdate()} />
         <Button title="按钮" onPress={() => {
-          ws.send("test")
+
         }} />
 
 
