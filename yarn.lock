@@ -4084,11 +4084,6 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
-jcore-react-native@^1.9.5:
-  version "1.9.5"
-  resolved "https://registry.npmmirror.com/jcore-react-native/download/jcore-react-native-1.9.5.tgz#b1b3ded1148d4b0772bac6e2b1a7111fd49572f4"
-  integrity sha512-xlUK40s9OLvHkqUbF9sIcuWVkfBUSoM5QMLwHfTaK+uDimYapzo9JV5KpiLx1ZRk1SQAd1KWwz3lhf7QQWVKqg==
-
 jest-changed-files@^26.6.2:
   version "26.6.2"
   resolved "https://registry.npmmirror.com/jest-changed-files/download/jest-changed-files-26.6.2.tgz#f6198479e1cc66f22f9ae1e22acaa0b429c042d0"
@@ -4492,11 +4487,6 @@ joi@^17.2.1:
     "@sideway/address" "^4.1.3"
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
-
-jpush-react-native@^2.8.9:
-  version "2.8.9"
-  resolved "https://registry.npmmirror.com/jpush-react-native/download/jpush-react-native-2.8.9.tgz#05f3ec8176342adb996fafdc5aa0b9afff58a426"
-  integrity sha512-u1/4EI21Erjz9VGPYG/YWwWW8nQbkN149fHpKIRX2nxA0HmBk7yjxWdaRFuXckJx0VhyUuvbJCU93M1RNzGSOQ==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
@@ -5961,6 +5951,11 @@ react-native-modal@^13.0.0:
   dependencies:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
+
+react-native-push-notification@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.npmmirror.com/react-native-push-notification/download/react-native-push-notification-8.1.1.tgz#a41d20c70ea5a7709417e96261b225461f8dc73a"
+  integrity sha1-pB0gxw6lp3CUF+liYbIlRh+Nxzo=
 
 react-native-ratings@8.0.4:
   version "8.0.4"
