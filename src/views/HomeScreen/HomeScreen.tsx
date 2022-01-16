@@ -1,19 +1,16 @@
 import { NativeStackHeaderProps } from "@react-navigation/native-stack"
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import { Text, ScrollView, Alert, StyleSheet, } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
-import { selectNativeData, selectToken, selectVersion } from "src/store/selectors"
+import { selectToken, selectVersion } from "src/store/selectors"
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { screenHeight, screenWidth } from "src/utils/constants"
 import actions from "src/store/actions"
 import UpdateAPK from "jie-rn-update-apk"
 import ProgressModal from "src/components/ShowModal/ProgressModal"
-import { store } from "src/store"
-import { useFocusEffect } from "@react-navigation/native"
 
 
-
-const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
+const HomeScreen: React.FC<NativeStackHeaderProps> = () => {
   const token = useSelector(selectToken)
   const [progress, setProgress] = useState(0)
   const version = useSelector(selectVersion)
@@ -92,8 +89,6 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
     console.log(version);
   }, [version])
 
-  // console.log(dayjs.utc().isUTC());
-  const nativeData = useSelector(selectNativeData)
 
   return (
 
@@ -106,7 +101,6 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = ({ navigation }) => {
 
         <Text>首页</Text>
 
-        <Text>{JSON.stringify(nativeData)}</Text>
 
       </ScrollView>
     </SafeAreaView>

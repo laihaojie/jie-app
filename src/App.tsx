@@ -4,8 +4,7 @@ import { Provider } from "react-redux"
 import { persistor, store } from "./store"
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { RootSiblingParent } from 'react-native-root-siblings';
-import { NativeModules, StatusBar } from 'react-native';
-import actions from './store/actions';
+import { StatusBar } from 'react-native';
 
 const App = () => {
 

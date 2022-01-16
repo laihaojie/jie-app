@@ -20,6 +20,10 @@
         "@react-navigation/native-stack": "^6.2.5",
         "dayjs": "^1.10.7",
         "immer": "^9.0.6",
+        "jcore-react-native": "^1.9.5",
+        "jie-rn-update-apk": "^5.0.2",
+        "jie-ws": "^1.0.3",
+        "jpush-react-native": "^2.8.9",
         "react": "17.0.2",
         "react-native": "0.66.4",
         "react-native-action-sheet": "^2.2.0",
@@ -43,8 +47,7 @@
         "redux-persist": "^6.0.0",
         "redux-thunk": "^2.4.0",
         "redux-type-actions": "^1.1.0",
-        "reselect": "^4.1.2",
-        "jie-rn-update-apk": "^5.0.2"
+        "reselect": "^4.1.2"
     },
     "devDependencies": {
         "@babel/core": "^7.12.9",
