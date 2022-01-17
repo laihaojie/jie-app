@@ -91,8 +91,6 @@ export default function TestScreen({ navigation }) {
   return (
 
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} edges={['top', 'left', 'right']}>
-      <Header title="开发设置" />
-
       <ScrollView>
         <Button title="设置TOKEN" onPress={() => dispatch(actions.setToken("这是token"))} />
         <Button title="退出" onPress={() => dispatch(actions.logout())} />

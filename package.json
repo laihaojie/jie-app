@@ -31,7 +31,6 @@
         "react-native-image-crop-picker": "^0.37.2",
         "react-native-linear-gradient": "^2.5.6",
         "react-native-modal": "^13.0.0",
-        "react-native-push-notification": "^8.1.1",
         "react-native-root-siblings": "^4.1.1",
         "react-native-safe-area-context": "^3.3.2",
         "react-native-screens": "^3.9.0",

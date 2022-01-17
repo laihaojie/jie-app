@@ -5945,11 +5945,6 @@ react-native-modal@^13.0.0:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
 
-react-native-push-notification@^8.1.1:
-  version "8.1.1"
-  resolved "https://registry.npmmirror.com/react-native-push-notification/download/react-native-push-notification-8.1.1.tgz#a41d20c70ea5a7709417e96261b225461f8dc73a"
-  integrity sha1-pB0gxw6lp3CUF+liYbIlRh+Nxzo=
-
 react-native-ratings@8.0.4:
   version "8.0.4"
   resolved "https://registry.nlark.com/react-native-ratings/download/react-native-ratings-8.0.4.tgz#efd5ebad8acc08bf98d34d39b18fb7a6813ef991"

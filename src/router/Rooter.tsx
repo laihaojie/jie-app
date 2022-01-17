@@ -1,15 +1,4 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, NavigationContainerRef } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import React, { useState } from 'react'
-import { routes } from './routes'
-import HomeScreen from "../views/HomeScreen/HomeScreen"
-
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { ScreensParamList } from 'src/typings/router';
-import { Alert, BackHandler, Image, NativeModules, StyleSheet, ToastAndroid } from 'react-native';
 import Icon from "react-native-vector-icons/AntDesign"
-
 import SplashScreen from 'react-native-splash-screen';
 import MyScreen from 'src/views/MyScreen/MyScreen';
 import { goBack, navigate, navRef } from 'src/utils/navigationService';
@@ -21,6 +10,15 @@ import actions from 'src/store/actions';
 import Toast from 'react-native-simple-toast';
 import LoginScreen from 'src/views/LoginScreen/LoginScreen';
 import TaskScreen from 'src/views/TaskScreen/TaskScreen';
+import TextScreen from 'src/views/TextScreen/TextScreen';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import { BackHandler, NativeModules, StyleSheet } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native";
+import HomeScreen from "src/views/HomeScreen/HomeScreen";
+import { routes } from "./routes";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -28,7 +26,7 @@ const Stack = createNativeStackNavigator();
 export type TabParamList = {
   home: { name: string };
   task: never;
-  help: never;
+  text: never;
   product: never;
   my: never;
 }
@@ -36,9 +34,9 @@ let lastBackPressed = 0;
 const Routes: React.FC = function () {
   const token = useSelector(selectToken)
   const dispatch = useDispatch()
-  const [isShow, setIsShow] = useState(false)
+  const [isShow, setIsShow] = React.useState(false)
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   React.useEffect(() => {
 
@@ -121,6 +119,9 @@ const Routes: React.FC = function () {
                       <Tab.Screen name="task" component={TaskScreen} options={{
                         title: "事件代办",
                       }} />
+                      <Tab.Screen name="text" component={TextScreen} options={{
+                        title: "小本本",
+                      }} />
                       <Tab.Screen name="test" component={TestScreen} options={{
                         title: "test"
                       }} />
@@ -166,6 +167,7 @@ function getIcon(focused: boolean, name: string) {
     "home": <Icon name='meh' size={30} color={focused ? "#2196F3" : "#999999"} />,
     "test": <Icon name='lock1' size={30} color={focused ? "#2196F3" : "#999999"} />,
     "task": <Icon name='bars' size={30} color={focused ? "#2196F3" : "#999999"} />,
+    "text": <Icon name='tagso' size={30} color={focused ? "#2196F3" : "#999999"} />,
     "my": <Icon name='user' size={30} color={focused ? "#2196F3" : "#999999"} />,
   }[name]
 }
