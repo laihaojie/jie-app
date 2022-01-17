@@ -16,7 +16,6 @@ export default function TextScreen() {
   let isMounted = true
 
   const [list, setList] = React.useState<Task[]>([])
-  const [index, setIndex] = React.useState(0);
   const [showVisible, setShowVisible] = React.useState(false)
   const [curTask, setCurTask] = React.useState<Task>({} as Task)
   const [isEdit, setIsEdit] = React.useState(false)
@@ -26,7 +25,7 @@ export default function TextScreen() {
   useFocusEffect(
     useCallback(() => {
       loadData()
-    }, [index]),
+    }, []),
   );
 
   React.useEffect(() => {
@@ -40,7 +39,7 @@ export default function TextScreen() {
   }, [])
 
   const loadData = async () => {
-    const res = await Api.getTaskList({ status: index + 1 })
+    const res = await Api.getTaskList({ status: 1 })
     if (isMounted) {
       setList([...res])
     }
@@ -52,7 +51,6 @@ export default function TextScreen() {
     await Api.createTask({ task: text })
     Toast.show('保存成功')
     setText("")
-    setIndex(0)
     loadData()
   }
 
@@ -80,13 +78,6 @@ export default function TextScreen() {
                 <Text>保存</Text>
               </TouchableOpacity>
             </View>
-            <ButtonGroup
-              buttons={['全部', '已完成', '待处理', '已删除']}
-              selectedIndex={index}
-              onPress={setIndex}
-              selectedButtonStyle={{ backgroundColor: "#2196F3", borderRadius: 2, }}
-            />
-
           </>
         }
         renderItem={({ item }) =>
@@ -149,9 +140,6 @@ export default function TextScreen() {
       {showVisible && <ActionSheetModal
         onClose={setShowVisible}
         list={[
-          { title: "完成", onPress: () => changeStatus(2), show: index != 1 },
-          { title: "撤回", onPress: () => changeStatus(1), show: index != 0 },
-          { title: "待处理", onPress: () => changeStatus(3), show: index != 2 },
           {
             title: "删除", onPress: () => {
               Alert.alert("提示", "您确定要删除吗?", [
@@ -167,7 +155,7 @@ export default function TextScreen() {
                   }
                 }
               ])
-            }, show: index != 3
+            },
           },
         ]} operates={[
           { title: "取消", onPress: () => (setShowVisible(false), setIsEdit(false)) },
