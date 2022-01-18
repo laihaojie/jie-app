@@ -4,7 +4,7 @@ import React, { FC, useCallback } from "react";
 import { Alert, Button, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Api } from "src/api";
-import { Task } from "src/typings/api";
+import { TextModel } from "src/typings/api";
 import Icon from "react-native-vector-icons/Entypo"
 import { screenWidth } from "src/utils/constants";
 import { ButtonGroup, Tab, TabView } from "react-native-elements";
@@ -15,9 +15,9 @@ import { isEmpty } from "src/utils";
 export default function TextScreen() {
   let isMounted = true
 
-  const [list, setList] = React.useState<Task[]>([])
+  const [list, setList] = React.useState<TextModel[]>([])
   const [showVisible, setShowVisible] = React.useState(false)
-  const [curTask, setCurTask] = React.useState<Task>({} as Task)
+  const [curText, setCurText] = React.useState<TextModel>({} as TextModel)
   const [isEdit, setIsEdit] = React.useState(false)
   const inp = React.useRef<TextInput>(null)
   const [text, setText] = React.useState("")
@@ -39,7 +39,7 @@ export default function TextScreen() {
   }, [])
 
   const loadData = async () => {
-    const res = await Api.getTaskList({ status: 1 })
+    const res = await Api.getTextList()
     if (isMounted) {
       setList([...res])
     }
@@ -48,14 +48,14 @@ export default function TextScreen() {
 
   const save = async () => {
     if (isEmpty(text.trim())) return Toast.show("任务不能为空")
-    await Api.createTask({ task: text })
+    await Api.createText({ text: text })
     Toast.show('保存成功')
     setText("")
     loadData()
   }
 
   const changeStatus = async (status) => {
-    await Api.updateTask({ id: curTask.id, status })
+    await Api.updateText({ id: curText.id, status })
     loadData()
     Toast.show('修改成功')
   }
@@ -63,8 +63,7 @@ export default function TextScreen() {
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} edges={['top', 'left', 'right']}>
 
-
-      <FlatList<Task>
+      <FlatList<TextModel>
         data={list}
         style={{ width: screenWidth, }}
         ListHeaderComponent={
@@ -84,27 +83,30 @@ export default function TextScreen() {
 
           <View style={styles.item}>
             {
-              (curTask.id == item.id && isEdit) ?
+              (curText.id == item.id && isEdit) ?
                 <TextInput
                   style={styles.input}
                   ref={inp}
-                  placeholder={curTask.task}
+                  placeholder={curText.text}
                   onChangeText={setText}
                   onBlur={() => {
-                    if (curTask.task == text) return (setIsEdit(false), setText(""))
+                    if (curText.text == text) return (setIsEdit(false), setText(""))
                     Alert.alert("提示", "确定要保存吗", [
                       {
                         text: "取消", onPress: () => {
-                          setCurTask({} as Task)
+                          setCurText({} as TextModel)
+                          setText("")
                           setIsEdit(false)
                         }
                       },
                       {
                         text: "保存", onPress: async () => {
-                          await Api.updateTask({ id: curTask.id, task: text })
+                          await Api.updateText({ id: curText.id, text: text })
                           Toast.show("保存成功")
-                          loadData()
+                          setCurText({} as TextModel)
+                          setText("")
                           setIsEdit(false)
+                          loadData()
                         }
                       }
                     ])
@@ -113,16 +115,16 @@ export default function TextScreen() {
                   value={text}
                 ></TextInput> :
                 <Text style={styles.text} onLongPress={() => {
-                  setCurTask({ ...item })
-                  setText(item.task)
+                  setCurText({ ...item })
+                  setText(item.text)
                   setIsEdit(true)
-                }}>{item.task}</Text>
+                }}>{item.text}</Text>
             }
 
 
 
             <TouchableOpacity style={styles.right} onPress={() => {
-              setCurTask({ ...item })
+              setCurText({ ...item })
               setShowVisible(true)
             }}>
               <Icon name="dots-three-vertical" style={{ fontSize: 20, }} />
@@ -145,7 +147,7 @@ export default function TextScreen() {
               Alert.alert("提示", "您确定要删除吗?", [
                 {
                   text: "取消", onPress: () => {
-                    setCurTask({} as Task)
+                    setCurText({} as TextModel)
                     setIsEdit(false)
                   }
                 },

@@ -1,5 +1,5 @@
 import { UserInfo } from "src/typings";
-import { Task } from "src/typings/api";
+import { Task, TextModel } from "src/typings/api";
 import { Get, Post, request } from "src/utils/request";
 
 export const Api = {
@@ -25,4 +25,16 @@ export const Api = {
 
   // 更新任务
   updateTask: (data) => Post(`/api/todoList/updateTask`, data),
+
+  // 获取文本列表
+  getTextList: () => Get<TextModel[]>(`/api/todoList/textList`),
+
+  // 创建文本
+  createText: (data) => Post(`/api/todoList/createText`, data),
+
+  // 删除文本
+  removeText: (data) => Post(`/api/todoList/removeText`, data),
+
+  // 更新文本
+  updateText: (data) => Post(`/api/todoList/updateText`, data),
 }

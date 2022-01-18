@@ -106,14 +106,17 @@ export default function TaskScreen() {
                         text: "取消", onPress: () => {
                           setCurTask({} as Task)
                           setIsEdit(false)
+                          setText("")
                         }
                       },
                       {
                         text: "保存", onPress: async () => {
                           await Api.updateTask({ id: curTask.id, task: text })
                           Toast.show("保存成功")
-                          loadData()
+                          setCurTask({} as Task)
                           setIsEdit(false)
+                          setText("")
+                          loadData()
                         }
                       }
                     ])

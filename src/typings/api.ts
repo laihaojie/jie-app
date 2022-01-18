@@ -26,11 +26,16 @@ export interface Policy {
   dir: string
 }
 
-
 export interface Task {
   id: string
   task: string
   isSelected: boolean
+  status: number
+}
+export interface TextModel {
+  id: string
+  text: string
+  isDelete: number
   status: number
 }
 
