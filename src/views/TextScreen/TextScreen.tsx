@@ -54,8 +54,8 @@ export default function TextScreen() {
     loadData()
   }
 
-  const changeStatus = async (status) => {
-    await Api.updateText({ id: curText.id, status })
+  const removeText = async () => {
+    await Api.updateText({ id: curText.id, })
     loadData()
     Toast.show('修改成功')
   }
@@ -153,7 +153,7 @@ export default function TextScreen() {
                 },
                 {
                   text: "确定", onPress: () => {
-                    changeStatus(0)
+                    removeText()
                   }
                 }
               ])
