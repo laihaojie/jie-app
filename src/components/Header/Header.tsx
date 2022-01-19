@@ -26,8 +26,8 @@ export default function Header({ title, backgroundColor, color, right }: IProps)
 
 
   return (
-    <View style={[styles.container, { backgroundColor: backgroundColor || "#55C1F0" }]}>
-      {statusBar ? <StatusBar translucent={false} backgroundColor={backgroundColor || "#55C1F0"} /> : null}
+    <View style={[styles.container, { backgroundColor: backgroundColor || "#2196F3" }]}>
+      {statusBar ? <StatusBar translucent={false} backgroundColor={backgroundColor || "#2196F3"} /> : null}
       {/* {isFunction(leftIcon) ? (leftIcon as Function)() : leftIcon} */}
       <TouchableOpacity style={styles.left} onPress={() => goBack()}>
         <Icon name="left" size={20} color="#fff" />

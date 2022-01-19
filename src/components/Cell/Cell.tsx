@@ -27,7 +27,7 @@ export default function Cell({ source, title, rightText, border, onPress }: IPro
       </View>
 
 
-      <Image style={styles.right} source={require("../../assets/image/rr.png")} />
+      <Image style={styles.right} source={require("../../assets/image/right.png")} />
     </TouchableOpacity>
   )
 }

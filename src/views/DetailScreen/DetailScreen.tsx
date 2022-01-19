@@ -12,7 +12,7 @@ const DetailsScreen: FC<NativeStackHeaderProps> = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
-      <Button title="按钮1" onPress={() => navigate('home')} />
+      <Button title="按钮1" onPress={() => navigate('HomeScreen')} />
       {/* <Input
         placeholder='INPUT WITH ICON'
         leftIcon={<Text>De</Text>}

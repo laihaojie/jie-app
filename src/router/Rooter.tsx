@@ -24,11 +24,10 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 export type TabParamList = {
-  home: { name: string };
-  task: never;
-  text: never;
-  product: never;
-  my: never;
+  HomeScreen: { name: string };
+  TaskScreen: never;
+  TextScreen: never;
+  MyScreen: never;
 }
 let lastBackPressed = 0;
 const Routes: React.FC = function () {
@@ -101,7 +100,7 @@ const Routes: React.FC = function () {
               </Stack.Navigator> :
 
               <Stack.Navigator screenOptions={{ headerTitleAlign: "center", headerShown: false }} >
-                <Stack.Screen name="Home" options={{ headerShown: false }} >
+                <Stack.Screen name="TableScreen" options={{ headerShown: false }} >
                   {() => (
                     <Tab.Navigator
                       initialRouteName="Analitics"
@@ -113,20 +112,17 @@ const Routes: React.FC = function () {
                         headerShown: false,
                       })}
                     >
-                      <Tab.Screen name="home" component={HomeScreen} options={{
+                      <Tab.Screen name="HomeScreen" component={HomeScreen} options={{
                         title: "首页",
                       }} />
-                      <Tab.Screen name="task" component={TaskScreen} options={{
+                      <Tab.Screen name="TaskScreen" component={TaskScreen} options={{
                         title: "事件代办",
                       }} />
-                      <Tab.Screen name="text" component={TextScreen} options={{
+                      <Tab.Screen name="TextScreen" component={TextScreen} options={{
                         title: "小本本",
                       }} />
-                      <Tab.Screen name="test" component={TestScreen} options={{
-                        title: "test"
-                      }} />
 
-                      <Tab.Screen name="my" listeners={{ "tabPress": check }} component={MyScreen} options={{
+                      <Tab.Screen name="MyScreen" listeners={{ "tabPress": check }} component={MyScreen} options={{
                         title: "我的"
                       }} />
                     </Tab.Navigator>
@@ -164,11 +160,10 @@ const styles = StyleSheet.create({
 
 function getIcon(focused: boolean, name: string) {
   return {
-    "home": <Icon name='meh' size={30} color={focused ? "#2196F3" : "#999999"} />,
-    "test": <Icon name='lock1' size={30} color={focused ? "#2196F3" : "#999999"} />,
-    "task": <Icon name='bars' size={30} color={focused ? "#2196F3" : "#999999"} />,
-    "text": <Icon name='tagso' size={30} color={focused ? "#2196F3" : "#999999"} />,
-    "my": <Icon name='user' size={30} color={focused ? "#2196F3" : "#999999"} />,
+    "HomeScreen": <Icon name='meh' size={30} color={focused ? "#2196F3" : "#999999"} />,
+    "TaskScreen": <Icon name='bars' size={30} color={focused ? "#2196F3" : "#999999"} />,
+    "TextScreen": <Icon name='tagso' size={30} color={focused ? "#2196F3" : "#999999"} />,
+    "MyScreen": <Icon name='user' size={30} color={focused ? "#2196F3" : "#999999"} />,
   }[name]
 }
 

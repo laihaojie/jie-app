@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react"
-import { Button, Text, ScrollView, View, DevSettings, NativeModules, Alert, Linking } from "react-native"
+import React from "react"
+import { Button, Text, ScrollView, View, DevSettings, Alert, } from "react-native"
 import { useDispatch, useSelector, } from "react-redux"
 import Modal from "react-native-modal";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import actions from "src/store/actions"
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { navigate } from "src/utils/navigationService"
 import { selectLocalAll, selectToken, selectUser } from "src/store/selectors"
 import Header from "src/components/Header/Header"
-import Toast from "react-native-simple-toast";
-import ActionSheetModal from "src/components/ShowModal/ActionSheetModal";
 import UpdateAPK from "jie-rn-update-apk"
 import ProgressModal from "src/components/ShowModal/ProgressModal";
-import { socketUrl } from "src/utils/constants";
 
 
 export default function TestScreen({ navigation }) {
@@ -22,13 +17,13 @@ export default function TestScreen({ navigation }) {
   const local = useSelector(selectLocalAll)
   const dispatch = useDispatch()
 
-  const [count, setCount] = useState(0)
+  const [count, setCount] = React.useState(0)
 
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = React.useState(false);
+  const [isVisible, setIsVisible] = React.useState(false);
 
-  const [progress, setProgress] = useState(0)
-  const [progressModalVisible, setProgressModalVisible] = useState(false)
+  const [progress, setProgress] = React.useState(0)
+  const [progressModalVisible, setProgressModalVisible] = React.useState(false)
 
   const updater = React.useMemo(() => new UpdateAPK({
     apkVersionUrl: `https://api-inapp.lingman.tech/api/Public/dev/androidversion`,
@@ -91,6 +86,7 @@ export default function TestScreen({ navigation }) {
   return (
 
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} edges={['top', 'left', 'right']}>
+      <Header title="开发设置" />
       <ScrollView>
         <Button title="设置TOKEN" onPress={() => dispatch(actions.setToken("这是token"))} />
         <Button title="退出" onPress={() => dispatch(actions.logout())} />

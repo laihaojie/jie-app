@@ -5,9 +5,11 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import { Api } from "src/api";
+import Cell from "src/components/Cell/Cell";
 import actions from "src/store/actions";
 import { selectUser } from "src/store/selectors";
 import { screenWidth } from "src/utils/constants";
+import { navigate } from "src/utils/navigationService";
 
 const MyScreen: FC<NativeStackHeaderProps> = () => {
   let isMounted = true
@@ -41,6 +43,9 @@ const MyScreen: FC<NativeStackHeaderProps> = () => {
           <Text style={styles.name}>{userInfo?.nick_name}</Text>
         </View>
 
+
+
+        <Cell source={require("../../assets/image/setting.png")} onPress={() => navigate("TestScreen")} title="开发设置" border={false} />
 
 
       </ScrollView>
