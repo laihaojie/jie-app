@@ -7,10 +7,13 @@ export interface DataState {
   user?: UserInfo;
   token: string;
   version: string;
+  account: string;
 }
 export const initialState: Readonly<DataState> = {
+  user: undefined,
   token: '',
   version: '',
+  account: '',
 };
 
 export default (originalState = initialState, action: Action) =>
@@ -24,6 +27,9 @@ export default (originalState = initialState, action: Action) =>
         return;
       case 'setVersion':
         state.version = action.payload
+        return;
+      case 'setAccount':
+        state.account = action.payload
         return;
       case 'logout':
         state.user = undefined;

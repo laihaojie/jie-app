@@ -9,11 +9,11 @@ import { isEmpty, isMobile } from "src/utils";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "src/store/actions";
 import Toast from "react-native-simple-toast";
-import { selectToken } from "src/store/selectors";
+import { selectAccount, selectToken } from "src/store/selectors";
 
 const LoginScreen: FC<NativeStackHeaderProps> = () => {
   const dispatch = useDispatch()
-  const [account, setAccount] = useState("")
+  const [account, setAccount] = useState(useSelector(selectAccount))
   const [password, setPassword] = useState("")
   const [disabled, setDisabled] = useState(false)
   const [disabledLogin, setDisabledLogin] = useState(false)
@@ -27,6 +27,7 @@ const LoginScreen: FC<NativeStackHeaderProps> = () => {
     Api.login({ account, password }).then(async res => {
       setDisabledLogin(false)
       dispatch(actions.setToken(res))
+      dispatch(actions.setAccount(account))
       const user = await Api.getUserInfo()
       dispatch(actions.setUser(user))
     }).catch(e => {

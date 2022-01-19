@@ -1,14 +1,15 @@
 import { NativeData } from './../typings/index';
-import { ActionValue, createAction, createActions, NoArgAction, ToggleAction, } from 'redux-type-actions';
+import { ActionValue, createAction, createActions, NoArgAction, StringAction, ToggleAction, } from 'redux-type-actions';
 import { UserInfo } from 'src/typings';
 
 
 const actions = createActions({
   // Data
   setUser: createAction<UserInfo>(),
-  setToken: createAction<string>(),
+  setToken: StringAction,
   logout: NoArgAction,
-  setVersion: createAction<string>(),
+  setVersion: StringAction,
+  setAccount: StringAction,
   clearAll: NoArgAction,
   // UI
   setNativeData: createAction<NativeData>(),
