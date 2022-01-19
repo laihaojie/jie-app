@@ -8,10 +8,12 @@ export type App = {
 
 export type UserInfo = {
   id: string;
-  avatar: string;
-  mobile: string;
-  nickName: string;
-  apps: App[];
+  account: string;
+  password: string;
+  nick_name?: string;
+  avatar?: string;
+  mobile?: string;
+  createTime?: Date;
 };
 
 export type NativeData = {
