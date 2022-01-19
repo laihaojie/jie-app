@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
 
 function getIcon(focused: boolean, name: string) {
   return {
-    "HomeScreen": <Icon name='meh' size={30} color={focused ? "#2196F3" : "#999999"} />,
+    "HomeScreen": <Icon name='home' size={30} color={focused ? "#2196F3" : "#999999"} />,
     "TaskScreen": <Icon name='bars' size={30} color={focused ? "#2196F3" : "#999999"} />,
     "TextScreen": <Icon name='tagso' size={30} color={focused ? "#2196F3" : "#999999"} />,
     "MyScreen": <Icon name='user' size={30} color={focused ? "#2196F3" : "#999999"} />,
