@@ -41,6 +41,6 @@ jobs:
     steps:
       - name: send
         run: |
-          curl -X GET "https://api.huihuizi.top/api/tools/releaseSuccess?id=jieapp"
+          curl -G "https://api.huihuizi.top/api/tools/releaseSuccess" --data-urlencode "id=杰APP"
           curl -X GET "https://api.huihuizi.top/api/public/updateAndroidVersion"
     needs: build
