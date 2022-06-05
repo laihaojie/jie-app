@@ -1,9 +1,8 @@
 import { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import React, { FC } from "react";
 import { Text, View } from "react-native";
-import { connect, useDispatch, useSelector } from "react-redux"
-import { Button, Input } from 'react-native-elements'
-import { useNavigation } from "@react-navigation/core";
+import { useSelector } from "react-redux"
+import { Button } from 'react-native-elements'
 import { selectToken } from "src/store/selectors";
 import { navigate } from "src/utils/navigationService";
 

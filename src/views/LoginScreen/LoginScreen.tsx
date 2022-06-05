@@ -1,15 +1,14 @@
 import { NativeStackHeaderProps } from "@react-navigation/native-stack";
-import React, { FC, useEffect, useRef, useState } from "react";
-import { SafeAreaView, TextInput, View, Image, StyleSheet, Button, Alert, TouchableOpacity, Text } from "react-native";
-import { navigate } from "src/utils/navigationService";
+import React, { FC, useState } from "react";
+import { SafeAreaView, TextInput, View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign"
 import { screenWidth } from "src/utils/constants";
 import { Api } from "src/api";
-import { isEmpty, isMobile } from "src/utils";
+import { isEmpty } from "src/utils";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "src/store/actions";
 import Toast from "react-native-simple-toast";
-import { selectAccount, selectToken } from "src/store/selectors";
+import { selectAccount } from "src/store/selectors";
 
 const LoginScreen: FC<NativeStackHeaderProps> = () => {
   const dispatch = useDispatch()

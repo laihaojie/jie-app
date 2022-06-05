@@ -1,13 +1,12 @@
 import { useFocusEffect } from "@react-navigation/native";
-import { NativeStackHeaderProps } from "@react-navigation/native-stack";
-import React, { FC, useCallback } from "react";
-import { Alert, Button, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useCallback } from "react";
+import { Alert, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Api } from "src/api";
 import { Task } from "src/typings/api";
 import Icon from "react-native-vector-icons/Entypo"
 import { screenWidth } from "src/utils/constants";
-import { ButtonGroup, Tab, TabView } from "react-native-elements";
+import { ButtonGroup } from "react-native-elements";
 import ActionSheetModal from "src/components/ShowModal/ActionSheetModal";
 import Toast from "react-native-simple-toast";
 import { isEmpty } from "src/utils";
