@@ -32,7 +32,7 @@ export interface Task {
   isSelected: boolean
   status: number
 }
-export interface TextModel {
+export interface NoteModel {
   id: string
   text: string
   isDelete: number

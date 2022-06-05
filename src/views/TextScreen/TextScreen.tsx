@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 import { Alert, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Api } from "src/api";
-import { TextModel } from "src/typings/api";
+import { NoteModel } from "src/typings/api";
 import Icon from "react-native-vector-icons/Entypo"
 import { screenWidth } from "src/utils/constants";
 import ActionSheetModal from "src/components/ShowModal/ActionSheetModal";
@@ -13,12 +13,12 @@ import { isEmpty } from "src/utils";
 export default function TextScreen() {
   let isMounted = true
 
-  const [list, setList] = React.useState<TextModel[]>([])
+  const [list, setList] = React.useState<NoteModel[]>([])
   const [showVisible, setShowVisible] = React.useState(false)
-  const [curText, setCurText] = React.useState<TextModel>({} as TextModel)
+  const [curText, setCurText] = React.useState<NoteModel>({} as NoteModel)
   const [isEdit, setIsEdit] = React.useState(false)
   const inp = React.useRef<TextInput>(null)
-  const [text, setText] = React.useState("")
+  const [note, setNote] = React.useState("")
 
   useFocusEffect(
     useCallback(() => {
@@ -37,7 +37,7 @@ export default function TextScreen() {
   }, [])
 
   const loadData = async () => {
-    const res = await Api.getTextList()
+    const res = await Api.getNoteList()
     if (isMounted) {
       setList([...res])
     }
@@ -45,15 +45,15 @@ export default function TextScreen() {
   }
 
   const save = async () => {
-    if (isEmpty(text.trim())) return Toast.show("任务不能为空")
-    await Api.createText({ text: text })
+    if (isEmpty(note.trim())) return Toast.show("任务不能为空")
+    await Api.createNote({ text: note })
     Toast.show('保存成功')
-    setText("")
+    setNote("")
     loadData()
   }
 
-  const removeText = async () => {
-    await Api.removeText({ id: curText.id, })
+  const removeNote = async () => {
+    await Api.removeNote({ id: curText.id, })
     loadData()
     Toast.show('修改成功')
   }
@@ -61,15 +61,15 @@ export default function TextScreen() {
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} edges={['top', 'left', 'right']}>
 
-      <FlatList<TextModel>
+      <FlatList<NoteModel>
         data={list}
         style={{ width: screenWidth, }}
         ListHeaderComponent={
           <>
             <View style={styles.topBox}>
               <TextInput style={styles.topInp}
-                onChangeText={setText}
-                value={isEdit ? "" : text}
+                onChangeText={setNote}
+                value={isEdit ? "" : note}
               />
               <TouchableOpacity style={styles.topBtn} activeOpacity={.6} onPress={save}>
                 <Text>保存</Text>
@@ -86,23 +86,23 @@ export default function TextScreen() {
                   style={styles.input}
                   ref={inp}
                   placeholder={curText.text}
-                  onChangeText={setText}
+                  onChangeText={setNote}
                   onBlur={() => {
-                    if (curText.text == text) return (setIsEdit(false), setText(""))
+                    if (curText.text == note) return (setIsEdit(false), setNote(""))
                     Alert.alert("提示", "确定要保存吗", [
                       {
                         text: "取消", onPress: () => {
-                          setCurText({} as TextModel)
-                          setText("")
+                          setCurText({} as NoteModel)
+                          setNote("")
                           setIsEdit(false)
                         }
                       },
                       {
                         text: "保存", onPress: async () => {
-                          await Api.updateText({ id: curText.id, text: text })
+                          await Api.updateNote({ id: curText.id, text: note })
                           Toast.show("保存成功")
-                          setCurText({} as TextModel)
-                          setText("")
+                          setCurText({} as NoteModel)
+                          setNote("")
                           setIsEdit(false)
                           loadData()
                         }
@@ -110,11 +110,11 @@ export default function TextScreen() {
                     ])
 
                   }}
-                  value={text}
+                  value={note}
                 ></TextInput> :
                 <Text style={styles.text} onLongPress={() => {
                   setCurText({ ...item })
-                  setText(item.text)
+                  setNote(item.text)
                   setIsEdit(true)
                 }}>{item.text}</Text>
             }
@@ -145,13 +145,13 @@ export default function TextScreen() {
               Alert.alert("提示", "您确定要删除吗?", [
                 {
                   text: "取消", onPress: () => {
-                    setCurText({} as TextModel)
+                    setCurText({} as NoteModel)
                     setIsEdit(false)
                   }
                 },
                 {
                   text: "确定", onPress: () => {
-                    removeText()
+                    removeNote()
                   }
                 }
               ])
