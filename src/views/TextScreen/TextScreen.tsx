@@ -53,7 +53,7 @@ export default function TextScreen() {
   }
 
   const removeText = async () => {
-    await Api.updateText({ id: curText.id, })
+    await Api.removeText({ id: curText.id, })
     loadData()
     Toast.show('修改成功')
   }
