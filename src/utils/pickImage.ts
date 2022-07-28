@@ -1,14 +1,15 @@
-import ActionSheet from 'react-native-action-sheet';
-import ImagePicker, {
+import ActionSheet from 'react-native-action-sheet'
+import type {
   Image as ImageFile,
-} from 'react-native-image-crop-picker';
+} from 'react-native-image-crop-picker'
+import ImagePicker from 'react-native-image-crop-picker'
 
 export async function openPicker() {
   return ImagePicker.openPicker({
     compressImageMaxWidth: 600,
     compressImageMaxHeight: 600,
     forceJpg: true,
-  }).catch(e => { });
+  }).catch(() => { })
 }
 
 export async function openCamera() {
@@ -17,25 +18,26 @@ export async function openCamera() {
     height: 600,
     cropping: true,
     forceJpg: true,
-  }).catch(e => { });
+  }).catch(() => { })
 }
 
 export default function pickImage(): Promise<ImageFile | null> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     ActionSheet.showActionSheetWithOptions(
       {
         options: ['拍摄', '从相册选择', '取消'],
         cancelButtonIndex: 2,
       },
-      buttonIndex => {
+      (buttonIndex) => {
         if (buttonIndex === 0) {
-          // @ts-ignore
-          openCamera().then(resolve);
-        } else if (buttonIndex === 1) {
-          // @ts-ignore
-          openPicker().then(resolve);
+          // @ts-expect-error xxx
+          openCamera().then(resolve)
+        }
+        else if (buttonIndex === 1) {
+          // @ts-expect-error xxx
+          openPicker().then(resolve)
         }
       },
-    );
-  });
+    )
+  })
 }

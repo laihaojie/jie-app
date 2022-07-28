@@ -1,21 +1,21 @@
-import React from "react";
-import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { isFunction } from "src/utils";
+import React from 'react'
+import type { ImageSourcePropType } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 interface IProps {
   // leftIcon: React.ReactElement<{}> | React.FC<{}>,
-  source: ImageSourcePropType,
-  title: string,
-  rightText?: string,
-  border?: boolean,
+  source: ImageSourcePropType
+  title: string
+  rightText?: string
+  border?: boolean
   onPress?: () => void
 }
 
 export default function Cell({ source, title, rightText, border, onPress }: IProps) {
-  if (typeof border === "undefined") border = true
+  if (typeof border === 'undefined') border = true
 
   return (
-    <TouchableOpacity style={[styles.container, border ? { borderBottomWidth: 1, borderBottomColor: "#E5E5E5", } : null]} onPress={onPress}>
+    <TouchableOpacity style={[styles.container, border ? { borderBottomWidth: 1, borderBottomColor: '#E5E5E5' } : null]} onPress={onPress}>
       {/* {isFunction(leftIcon) ? (leftIcon as Function)() : leftIcon} */}
       <Image style={styles.left} source={source} />
       <View style={styles.center}>
@@ -26,8 +26,7 @@ export default function Cell({ source, title, rightText, border, onPress }: IPro
         }
       </View>
 
-
-      <Image style={styles.right} source={require("../../assets/image/right.png")} />
+      <Image style={styles.right} source={require('../../assets/image/right.png')} />
     </TouchableOpacity>
   )
 }
@@ -35,12 +34,12 @@ export default function Cell({ source, title, rightText, border, onPress }: IPro
 const styles = StyleSheet.create({
   title: {
     marginLeft: 12,
-    color: "#333333",
+    color: '#333333',
   },
   center: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   right: {
@@ -53,10 +52,10 @@ const styles = StyleSheet.create({
     height: 22,
   },
   container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     padding: 14,
 
-  }
+  },
 })

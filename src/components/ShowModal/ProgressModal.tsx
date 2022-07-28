@@ -1,20 +1,17 @@
-import React, { FC, useEffect, useState } from "react";
-import { Image, ImageBackground, Modal, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { LinearProgress } from "react-native-elements";
-import { screenHeight, screenWidth } from "src/utils/constants";
-import { navigate } from "src/utils/navigationService";
+import React, { useEffect, useState } from 'react'
+import { Modal, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { screenHeight, screenWidth } from 'src/utils/constants'
 
 interface IProps {
-  onClose: Function,
-  progress: number,
+  onClose: Function
+  progress: number
 }
 const progressWidth = screenWidth - 32 - 30 - 40
 export default function ProgressModal({ onClose, progress }: IProps) {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(true)
   useEffect(() => {
-    if (!modalVisible || progress >= 100) {
+    if (!modalVisible || progress >= 100)
       onClose(false)
-    }
   }, [modalVisible, progress])
 
   return (
@@ -23,7 +20,7 @@ export default function ProgressModal({ onClose, progress }: IProps) {
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
-        setModalVisible(!modalVisible);
+        setModalVisible(!modalVisible)
       }}
     >
       <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0.7)" />
@@ -31,15 +28,14 @@ export default function ProgressModal({ onClose, progress }: IProps) {
         <View style={styles.box}>
           <Text style={styles.title}>下载进度</Text>
           <View style={styles.lineBox}>
-            <View style={{ height: 5, width: progressWidth, backgroundColor: "#ccc", borderRadius: 2, }}>
-              <View style={{ height: 5, backgroundColor: "#027AFF", borderRadius: 2, width: (progress / 100) * progressWidth }}></View>
+            <View style={{ height: 5, width: progressWidth, backgroundColor: '#ccc', borderRadius: 2 }}>
+              <View style={{ height: 5, backgroundColor: '#027AFF', borderRadius: 2, width: (progress / 100) * progressWidth }}></View>
             </View>
             {/* <LinearProgress style={styles.line} color="primary" variant="determinate" trackColor="#ccc" value={progress / 100} /> */}
             <Text style={styles.number}>{progress}%</Text>
           </View>
 
         </View>
-
 
       </View>
     </Modal >
@@ -49,9 +45,9 @@ export default function ProgressModal({ onClose, progress }: IProps) {
 
 const styles = StyleSheet.create({
   number: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 16,
-    color: "#333",
+    color: '#333',
     marginLeft: 10,
   },
   line: {
@@ -60,20 +56,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 16,
-    color: "#333",
+    color: '#333',
     // marginLeft: 10,
     // marginTop: 10,
   },
   lineBox: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 10,
   },
   box: {
     width: screenWidth - 32,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderRadius: 10,
     paddingTop: 20,
     paddingLeft: 15,
@@ -83,8 +79,8 @@ const styles = StyleSheet.create({
   modalView: {
     width: screenWidth,
     height: screenHeight,
-    backgroundColor: "rgba(0,0,0,0.7)",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })

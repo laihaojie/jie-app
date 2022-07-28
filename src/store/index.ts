@@ -1,10 +1,10 @@
-import { createStore, combineReducers, applyMiddleware } from "redux"
-import thunk from "redux-thunk"
-import { persistReducer, persistStore } from 'redux-persist';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import dataStateReducer from "./reducers/dataStateReducer";
-import uiStateReducer from "./reducers/uiStateReducer";
-import { selectToken } from "./selectors";
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import thunk from 'redux-thunk'
+import { persistReducer, persistStore } from 'redux-persist'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import dataStateReducer from './reducers/dataStateReducer'
+import uiStateReducer from './reducers/uiStateReducer'
+import { selectToken } from './selectors'
 
 // export interface StoreState {
 //   AccountReducer: AccountStore
@@ -28,13 +28,12 @@ const persistedReducer = persistReducer(
     storage: AsyncStorage,
     blacklist: ['dataState'],
   },
-  reducer
+  reducer,
 )
 
-
 export const store = createStore(persistedReducer, applyMiddleware(thunk))
-export const persistor = persistStore(store);
+export const persistor = persistStore(store)
 
 export function getToken() {
-  return selectToken(store.getState());
+  return selectToken(store.getState())
 }

@@ -1,7 +1,7 @@
-import { NativeData } from './../typings/index';
-import { ActionValue, createAction, createActions, NoArgAction, StringAction, ToggleAction, } from 'redux-type-actions';
-import { UserInfo } from 'src/typings';
-
+import type { ActionValue } from 'redux-type-actions'
+import { NoArgAction, StringAction, createAction, createActions } from 'redux-type-actions'
+import type { UserInfo } from 'src/typings'
+import type { NativeData } from './../typings/index'
 
 const actions = createActions({
   // Data
@@ -13,8 +13,8 @@ const actions = createActions({
   clearAll: NoArgAction,
   // UI
   setNativeData: createAction<NativeData>(),
-});
+})
 
-export type Action = ActionValue<typeof actions>;
+export type Action = ActionValue<typeof actions>
 
-export default actions;
+export default actions

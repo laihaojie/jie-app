@@ -1,13 +1,12 @@
-import React from 'react';
-import Routes from './router/Rooter';
-import { Provider } from "react-redux"
-import { persistor, store } from "./store"
-import { PersistGate } from 'redux-persist/es/integration/react';
-import { RootSiblingParent } from 'react-native-root-siblings';
-import { StatusBar } from 'react-native';
+import React from 'react'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/es/integration/react'
+import { RootSiblingParent } from 'react-native-root-siblings'
+import { StatusBar } from 'react-native'
+import Routes from './router/Rooter'
+import { persistor, store } from './store'
 
 const App = () => {
-
   return (
     <Provider store={store}>
       <StatusBar translucent={true} backgroundColor="#2196F3" />
@@ -18,7 +17,6 @@ const App = () => {
       </PersistGate>
     </Provider>
   )
-};
+}
 
-
-export default App;
+export default App

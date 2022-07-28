@@ -1,10 +1,11 @@
-import { NativeStackHeaderProps } from "@react-navigation/native-stack";
-import React, { FC } from "react";
-import { Text, View } from "react-native";
-import { useSelector } from "react-redux"
+import type { NativeStackHeaderProps } from '@react-navigation/native-stack'
+import type { FC } from 'react'
+import React from 'react'
+import { Text, View } from 'react-native'
+import { useSelector } from 'react-redux'
 import { Button } from 'react-native-elements'
-import { selectToken } from "src/store/selectors";
-import { navigate } from "src/utils/navigationService";
+import { selectToken } from 'src/store/selectors'
+import { navigate } from 'src/utils/navigationService'
 
 const DetailsScreen: FC<NativeStackHeaderProps> = () => {
   const token = useSelector(selectToken)
@@ -18,7 +19,7 @@ const DetailsScreen: FC<NativeStackHeaderProps> = () => {
       /> */}
       <Text>{token}</Text>
     </View>
-  );
+  )
 }
 
 export default DetailsScreen

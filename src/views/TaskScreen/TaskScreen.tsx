@@ -1,37 +1,36 @@
-import { useFocusEffect } from "@react-navigation/native";
-import React, { useCallback } from "react";
-import { Alert, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Api } from "src/api";
-import { Task } from "src/typings/api";
-import Icon from "react-native-vector-icons/Entypo"
-import { screenWidth } from "src/utils/constants";
-import { ButtonGroup } from "react-native-elements";
-import ActionSheetModal from "src/components/ShowModal/ActionSheetModal";
-import Toast from "react-native-simple-toast";
-import { isEmpty } from "src/utils";
+import { useFocusEffect } from '@react-navigation/native'
+import React, { useCallback } from 'react'
+import { Alert, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { Api } from 'src/api'
+import type { Task } from 'src/typings/api'
+import Icon from 'react-native-vector-icons/Entypo'
+import { screenWidth } from 'src/utils/constants'
+import { ButtonGroup } from 'react-native-elements'
+import ActionSheetModal from 'src/components/ShowModal/ActionSheetModal'
+import Toast from 'react-native-simple-toast'
+import { isEmpty } from '@djie/utils'
 
 export default function TaskScreen() {
   let isMounted = true
 
   const [list, setList] = React.useState<Task[]>([])
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = React.useState(0)
   const [showVisible, setShowVisible] = React.useState(false)
   const [curTask, setCurTask] = React.useState<Task>({} as Task)
   const [isEdit, setIsEdit] = React.useState(false)
   const inp = React.useRef<TextInput>(null)
-  const [text, setText] = React.useState("")
+  const [text, setText] = React.useState('')
 
   useFocusEffect(
     useCallback(() => {
       loadData()
     }, [index]),
-  );
+  )
 
   React.useEffect(() => {
-    if (isEdit) {
+    if (isEdit)
       inp.current?.focus()
-    }
   }, [isEdit])
 
   React.useEffect(() => {
@@ -40,17 +39,15 @@ export default function TaskScreen() {
 
   const loadData = async () => {
     const res = await Api.getTaskList({ status: index + 1 })
-    if (isMounted) {
+    if (isMounted)
       setList([...res])
-    }
-
   }
 
   const save = async () => {
-    if (isEmpty(text.trim())) return Toast.show("任务不能为空")
+    if (isEmpty(text.trim())) return Toast.show('任务不能为空')
     await Api.createTask({ task: text })
     Toast.show('保存成功')
-    setText("")
+    setText('')
     setIndex(0)
     loadData()
   }
@@ -64,18 +61,17 @@ export default function TaskScreen() {
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} edges={['top', 'left', 'right']}>
 
-
       <FlatList<Task>
         data={list}
-        style={{ width: screenWidth, }}
+        style={{ width: screenWidth }}
         ListHeaderComponent={
           <>
             <View style={styles.topBox}>
               <TextInput style={styles.topInp}
                 onChangeText={setText}
-                value={isEdit ? "" : text}
+                value={isEdit ? '' : text}
               />
-              <TouchableOpacity style={styles.topBtn} activeOpacity={.6} onPress={save}>
+              <TouchableOpacity style={styles.topBtn} activeOpacity={0.6} onPress={save}>
                 <Text>保存</Text>
               </TouchableOpacity>
             </View>
@@ -83,7 +79,7 @@ export default function TaskScreen() {
               buttons={['全部', '已完成', '待处理', '已删除']}
               selectedIndex={index}
               onPress={setIndex}
-              selectedButtonStyle={{ backgroundColor: "#2196F3", borderRadius: 2, }}
+              selectedButtonStyle={{ backgroundColor: '#2196F3', borderRadius: 2 }}
             />
 
           </>
@@ -92,115 +88,115 @@ export default function TaskScreen() {
 
           <View style={styles.item}>
             {
-              (curTask.id == item.id && isEdit) ?
-                <TextInput
+              (curTask.id === item.id && isEdit)
+                ? <TextInput
                   style={styles.input}
                   ref={inp}
                   placeholder={curTask.task}
                   onChangeText={setText}
                   onBlur={() => {
-                    if (curTask.task == text) return (setIsEdit(false), setText(""))
-                    Alert.alert("提示", "确定要保存吗", [
+                    if (curTask.task === text) return (setIsEdit(false), setText(''))
+                    Alert.alert('提示', '确定要保存吗', [
                       {
-                        text: "取消", onPress: () => {
+                        text: '取消',
+                        onPress: () => {
                           setCurTask({} as Task)
                           setIsEdit(false)
-                          setText("")
-                        }
+                          setText('')
+                        },
                       },
                       {
-                        text: "保存", onPress: async () => {
+                        text: '保存',
+                        onPress: async () => {
                           await Api.updateTask({ id: curTask.id, task: text })
-                          Toast.show("保存成功")
+                          Toast.show('保存成功')
                           setCurTask({} as Task)
                           setIsEdit(false)
-                          setText("")
+                          setText('')
                           loadData()
-                        }
-                      }
+                        },
+                      },
                     ])
-
                   }}
                   value={text}
-                ></TextInput> :
-                <Text style={styles.text} onLongPress={() => {
+                ></TextInput>
+                : <Text style={styles.text} onLongPress={() => {
                   setCurTask({ ...item })
                   setText(item.task)
                   setIsEdit(true)
                 }}>{item.task}</Text>
             }
 
-
-
             <TouchableOpacity style={styles.right} onPress={() => {
               setCurTask({ ...item })
               setShowVisible(true)
             }}>
-              <Icon name="dots-three-vertical" style={{ fontSize: 20, }} />
+              <Icon name="dots-three-vertical" style={{ fontSize: 20 }} />
             </TouchableOpacity>
 
           </View>
-
-
 
         }
         keyExtractor={item => item.id}
       />
 
-
       {showVisible && <ActionSheetModal
         onClose={setShowVisible}
         list={[
-          { title: "完成", onPress: () => changeStatus(2), show: index != 1 },
-          { title: "撤回", onPress: () => changeStatus(1), show: index != 0 },
-          { title: "待处理", onPress: () => changeStatus(3), show: index != 2 },
+          { title: '完成', onPress: () => changeStatus(2), show: index !== 1 },
+          { title: '撤回', onPress: () => changeStatus(1), show: index !== 0 },
+          { title: '待处理', onPress: () => changeStatus(3), show: index !== 2 },
           {
-            title: "删除", onPress: () => {
-              Alert.alert("提示", "您确定要删除吗?", [
+            title: '删除',
+            onPress: () => {
+              Alert.alert('提示', '您确定要删除吗?', [
                 {
-                  text: "取消", onPress: () => {
+                  text: '取消',
+                  onPress: () => {
                     setCurTask({} as Task)
                     setIsEdit(false)
-                  }
+                  },
                 },
                 {
-                  text: "确定", onPress: () => {
+                  text: '确定',
+                  onPress: () => {
                     changeStatus(0)
-                  }
-                }
+                  },
+                },
               ])
-            }, show: index != 3
+            },
+            show: index !== 3,
           },
         ]} operates={[
-          { title: "取消", onPress: () => (setShowVisible(false), setIsEdit(false)) },
+          { title: '取消', onPress: () => ((setShowVisible(false), setIsEdit(false))) },
         ]} />}
 
     </SafeAreaView >
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   topBox: {
     height: 56,
     width: screenWidth,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#2196F3",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#2196F3',
     paddingHorizontal: 10,
   },
   topBtn: {
     width: 50,
     height: 38,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 6,
   },
   topInp: {
     flex: 1,
     height: 38,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderRadius: 18,
     marginRight: 16,
     paddingHorizontal: 14,
@@ -208,35 +204,35 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    color: "black",
+    color: 'black',
     fontSize: 18,
     marginHorizontal: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   right: {
     width: 32,
     height: 32,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     flex: 1,
-    color: "black",
+    color: 'black',
     fontSize: 18,
     marginHorizontal: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   item: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginVertical: 10,
   },
   title: {
-    color: "#333",
+    color: '#333',
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginLeft: 16,
     marginBottom: 10,
   },

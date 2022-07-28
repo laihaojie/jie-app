@@ -1,25 +1,20 @@
-import { RouteProps } from "../typings/router";
-import Home from "../views/HomeScreen/HomeScreen"
-import DetailScreen from "../views/DetailScreen/DetailScreen"
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import TestScreen from 'src/views/test'
+import type { RouteProps } from '../typings/router'
+import DetailScreen from '../views/DetailScreen/DetailScreen'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const Stack = createNativeStackNavigator()
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "src/views/LoginScreen/LoginScreen";
-import TestScreen from "src/views/test";
-
-
-
-const Stack = createNativeStackNavigator();
-
-export type MainStackParamList = {
-  DetailScreen: never;
-  LoginScreen: never;
-  TestScreen: never;
+export interface MainStackParamList {
+  DetailScreen: never
+  LoginScreen: never
+  TestScreen: never
 }
 
 export const routes = <RouteProps[]>[
-  { name: "DetailScreen", component: DetailScreen },
-  { name: "TestScreen", component: TestScreen },
+  { name: 'DetailScreen', component: DetailScreen },
+  { name: 'TestScreen', component: TestScreen },
   // { name: "LoginScreen", component: LoginScreen },
 
 ]

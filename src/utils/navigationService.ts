@@ -1,6 +1,6 @@
-import { NavigationContainerRef } from "@react-navigation/native"
-import React from "react"
-import { ScreensParamList } from "src/typings/router"
+import type { NavigationContainerRef } from '@react-navigation/native'
+import React from 'react'
+import type { ScreensParamList } from 'src/typings/router'
 
 export const navRef = React.createRef<NavigationContainerRef<any>>()
 

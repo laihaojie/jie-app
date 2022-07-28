@@ -1,6 +1,5 @@
-
-import Storage from 'react-native-storage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Storage from 'react-native-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const storage = new Storage({
   size: 1000,
@@ -8,25 +7,25 @@ const storage = new Storage({
   defaultExpires: null, // 1000 * 3600 * 24,
   enableCache: true,
   sync: {
-  }
-});
+  },
+})
 
-export default storage;
+export default storage
 
 /**
- * 
- * @param {String} key 
- * @returns 
+ *
+ * @param {String} key
+ * @returns
  */
 export async function localGet(key: string): Promise<any> {
-  return storage.load({ key, autoSync: true, syncInBackground: true, }).catch(res => "")
+  return storage.load({ key, autoSync: true, syncInBackground: true }).catch(() => '')
 }
 
 export function localSet(key: string, data: any) {
-  storage.save({ key, data, });
+  storage.save({ key, data })
 }
 
 export function localRemove(key: string) {
-  storage.remove({ key });
+  storage.remove({ key })
 }
 

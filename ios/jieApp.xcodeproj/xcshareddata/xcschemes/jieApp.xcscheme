@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "jieApp.app"
-               BlueprintName = "jieApp"
-               ReferencedContainer = "container:jieApp.xcodeproj">
+               BuildableName = "jieapp.app"
+               BlueprintName = "jieapp"
+               ReferencedContainer = "container:jieapp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "jieAppTests.xctest"
-               BlueprintName = "jieAppTests"
-               ReferencedContainer = "container:jieApp.xcodeproj">
+               BuildableName = "jieappTests.xctest"
+               BlueprintName = "jieappTests"
+               ReferencedContainer = "container:jieapp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "jieApp.app"
-            BlueprintName = "jieApp"
-            ReferencedContainer = "container:jieApp.xcodeproj">
+            BuildableName = "jieapp.app"
+            BlueprintName = "jieapp"
+            ReferencedContainer = "container:jieapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "jieApp.app"
-            BlueprintName = "jieApp"
-            ReferencedContainer = "container:jieApp.xcodeproj">
+            BuildableName = "jieapp.app"
+            BlueprintName = "jieapp"
+            ReferencedContainer = "container:jieapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

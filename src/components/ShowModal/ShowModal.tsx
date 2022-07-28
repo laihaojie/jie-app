@@ -1,18 +1,17 @@
-import React, { FC, useEffect, useState } from "react";
-import { Modal, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { screenHeight, screenWidth } from "src/utils/constants";
+import React, { useEffect, useState } from 'react'
+import { Modal, StatusBar, StyleSheet, TouchableOpacity } from 'react-native'
+import { screenHeight, screenWidth } from 'src/utils/constants'
 
 interface IProps {
-  onClose: Function,
+  onClose: Function
   children?: React.ReactChild
 }
 
 export default function ShowModal({ children, onClose }: IProps) {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(true)
   useEffect(() => {
-    if (!modalVisible) {
+    if (!modalVisible)
       onClose(false)
-    }
   }, [modalVisible])
 
   return (
@@ -21,7 +20,7 @@ export default function ShowModal({ children, onClose }: IProps) {
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
-        setModalVisible(!modalVisible);
+        setModalVisible(!modalVisible)
       }}
     >
       <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0.7)" />
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
   modalView: {
     width: screenWidth,
     height: screenHeight,
-    backgroundColor: "rgba(0,0,0,0.7)",
-    alignItems: "center",
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    alignItems: 'center',
   },
 })

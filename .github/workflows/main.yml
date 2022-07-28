@@ -3,12 +3,13 @@ on: push
 
 jobs:
   build:
+    if: contains(github.event.head_commit.message, 'publish')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: "16"
       - name: Build
         run: |
           yarn
@@ -23,24 +24,10 @@ jobs:
           access-key-secret: ${{ secrets.ACCESSKEYSECRET }}
       - run: ossutil cp -rf ./android/app/build/outputs/apk/release/jieapp.apk oss://luhaojie/apks/
 
-      # - name: Scp
-      #   uses: cross-the-world/scp-pipeline@master
-      #   env:
-      #     WELCOME: "ssh scp ssh pipelines"
-      #     LASTSSH: "Doing something after copying"
-      #   with:
-      #     host: ${{ secrets.TG_HOST }}
-      #     user: ${{ secrets.TG_USER }}
-      #     pass: ${{ secrets.TG_PASS }}
-      #     connect_timeout: 10s
-      #     local: "./android/app/build/outputs/apk/release/jieapp.apk"
-      #     remote: /app/nodejs/admin/static/apk
+      - name: Send success message
+        if: success()
+        run: curl -G "https://wss.laihaojie.com/api/tools/releaseSuccess" --data-urlencode "id=阿杰的APP"
 
-  send:
-    runs-on: ubuntu-latest
-    steps:
-      - name: send
-        run: |
-          curl -G "https://api.huihuizi.top/api/tools/releaseSuccess" --data-urlencode "id=杰APP"
-          curl -X GET "https://api.huihuizi.top/api/public/updateAndroidVersion"
-    needs: build
+      - name: Send failed message
+        if: failure()
+        run: curl -G "https://wss.laihaojie.com/api/tools/releaseFailed" --data-urlencode "id=阿杰的APP"

@@ -1,24 +1,24 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "useDefineForClassFields": true,
-        "noImplicitAny": false,
-        "target": "esnext",
-        "module": "commonjs",
-        "lib": ["es2017"],
-        "allowJs": false,
-        "skipLibCheck": true,
-        "esModuleInterop": false,
-        "allowSyntheticDefaultImports": true,
-        "forceConsistentCasingInFileNames": true,
-        "noEmit": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "strict": true,
-        "jsx": "react-native",
-        "moduleResolution": "node",
-    },
-    "exclude": [
-        "node_modules", "babel.config.js", "metro.config.js", "jest.config.js"
-    ]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "useDefineForClassFields": true,
+    "noImplicitAny": false,
+    "target": "esnext",
+    "module": "commonjs",
+    "lib": ["es2017"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "strict": true,
+    "jsx": "react-native",
+    "moduleResolution": "node",
+  },
+  "exclude": [
+    "node_modules", "babel.config.js", "metro.config.js", "jest.config.js"
+  ]
 }

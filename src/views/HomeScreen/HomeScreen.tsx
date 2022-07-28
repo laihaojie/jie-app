@@ -1,14 +1,15 @@
-import { NativeStackHeaderProps } from "@react-navigation/native-stack"
-import React, { useRef, useState } from "react"
-import { Text, ScrollView, Alert, StyleSheet, } from "react-native"
-import { useDispatch, useSelector } from "react-redux"
-import { selectToken, selectVersion } from "src/store/selectors"
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { screenHeight, screenWidth } from "src/utils/constants"
-import actions from "src/store/actions"
-import UpdateAPK from "jie-rn-update-apk"
-import ProgressModal from "src/components/ShowModal/ProgressModal"
-
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type { NativeStackHeaderProps } from '@react-navigation/native-stack'
+import React, { useRef, useState } from 'react'
+import { Alert, ScrollView, StyleSheet, Text } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectToken, selectVersion } from 'src/store/selectors'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { screenHeight, screenWidth } from 'src/utils/constants'
+import actions from 'src/store/actions'
+import UpdateAPK from 'jie-rn-update-apk'
+import ProgressModal from 'src/components/ShowModal/ProgressModal'
 
 const HomeScreen: React.FC<NativeStackHeaderProps> = () => {
   const token = useSelector(selectToken)
@@ -18,39 +19,38 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = () => {
   const updater = useRef<any>(null)
   // console.log(token);
 
-
   updater.current = new UpdateAPK({
 
-    apkVersionUrl: `https://api.huihuizi.top/api/public/androidVersion`,
+    apkVersionUrl: 'https://api.laihaojie.com/api/public/androidVersion',
     devVersion: version,
     apkVersionOptions: {
       method: 'GET',
-      headers: {}
+      headers: {},
     },
 
     apkOptions: {
-      headers: {}
+      headers: {},
     },
-    fileProviderAuthority: "com.jieapp.fileprovider",
+    fileProviderAuthority: 'com.jieapp.fileprovider',
 
-    needUpdateApp: performUpdate => {
-      console.log("开发更新版本号=================", version);
+    needUpdateApp: (performUpdate) => {
+      console.log('开发更新版本号=================', version)
       Alert.alert(
-        "有一个新的版本",
-        "新版本发布",
+        '有一个新的版本',
+        '新版本发布',
         [
-          { text: "取消", onPress: () => { } },
+          { text: '取消', onPress: () => { } },
           {
-            text: "更新", onPress: () => {
-              performUpdate(true);
-            }
-          }
+            text: '更新',
+            onPress: () => {
+              performUpdate(true)
+            },
+          },
         ])
     },
 
-
     forceUpdateApp: () => {
-      console.log("forceUpdateApp callback called");
+      console.log('forceUpdateApp callback called')
     },
 
     notNeedUpdateApp: ({ devVersion }) => {
@@ -61,7 +61,7 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = () => {
       // console.log("开发更新版本号=================", version);
     },
 
-    downloadApkProgress: progress => {
+    downloadApkProgress: (progress) => {
       setProgress(progress)
     },
 
@@ -71,13 +71,11 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = () => {
       dispatch(actions.setVersion(devVersion))
     },
 
-    onError: err => {
-      console.log("onError callback called", err);
-      Alert.alert("There was an error", err.message);
-    }
-  });
-
-
+    onError: (err) => {
+      console.log('onError callback called', err)
+      Alert.alert('There was an error', err.message)
+    },
+  })
 
   const [progressModalVisible, setProgressModalVisible] = useState(false)
 
@@ -86,9 +84,8 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = () => {
   }, [])
 
   React.useEffect(() => {
-    console.log(version);
+    console.log(version)
   }, [version])
-
 
   return (
 
@@ -101,12 +98,10 @@ const HomeScreen: React.FC<NativeStackHeaderProps> = () => {
 
         <Text>首页</Text>
 
-
       </ScrollView>
     </SafeAreaView>
 
-
-  );
+  )
 }
 
 export default React.memo(HomeScreen)
@@ -116,8 +111,8 @@ const styles = StyleSheet.create({
   modalView: {
     width: screenWidth,
     height: screenHeight,
-    backgroundColor: "rgba(0,0,0,0.3)",
-    alignItems: "center",
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    alignItems: 'center',
   },
 
-});
+})
