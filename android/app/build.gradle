@@ -209,6 +209,9 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    // 添加约束布局
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
 }
 
 if (isNewArchitectureEnabled()) {
