@@ -23,6 +23,7 @@
     "react-native": "0.69.3",
     "react-native-action-sheet": "^2.2.0",
     "react-native-elements": "^3.4.2",
+    "react-native-fs": "2.17.0",
     "react-native-image-crop-picker": "^0.38.0",
     "react-native-modal": "^13.0.1",
     "react-native-root-siblings": "^4.1.1",
