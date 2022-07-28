@@ -5002,13 +5002,13 @@ jetifier@^1.6.2:
   resolved "https://registry.yarnpkg.com/jetifier/-/jetifier-1.6.8.tgz#e88068697875cbda98c32472902c4d3756247798"
   integrity sha512-3Zi16h6L5tXDRQJTb221cnRoVG9/9OvreLdLU2/ZjRv/GILL+2Cemt0IKvkowwkDpvouAU1DQPOJ7qaiHeIdrw==
 
-jie-rn-update-apk@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/jie-rn-update-apk/-/jie-rn-update-apk-5.0.2.tgz#74c804cc281d03fa2e9c089feb8d0b16e3a8c7d0"
-  integrity sha512-SkRJeOX1bA3g/gnnhYUemey8GpXRc7xqXRYJ2EH7+lXqWU1dhMFDarfa2xaq8l8SSPMibGIVbvbpZsmSdz98NQ==
+jie-rn-update-apk@^5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/jie-rn-update-apk/-/jie-rn-update-apk-5.0.4.tgz#c8ed24cb72d36554b9cb79a406eaf6c16c7f8fa8"
+  integrity sha512-Q8oeMtmqmM+zdJv+qoBUR/TyZjijd0XZNDj0Hhe6eOnmjvMcjDLfOcNBJcQpCB6oHhSsbKxn8YCRmkK1SIJkiQ==
   dependencies:
-    react-native-fs "^2.18.0"
-    semver "^7.3.5"
+    react-native-fs "^2.17.0"
+    semver "^7.3.7"
 
 joi@^17.2.1:
   version "17.6.0"
@@ -6516,7 +6516,7 @@ react-native-elements@^3.4.2:
     react-native-ratings "8.0.4"
     react-native-size-matters "^0.3.1"
 
-react-native-fs@^2.18.0:
+react-native-fs@^2.17.0:
   version "2.20.0"
   resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.20.0.tgz#05a9362b473bfc0910772c0acbb73a78dbc810f6"
   integrity sha512-VkTBzs7fIDUiy/XajOSNk0XazFE9l+QlMAce7lGuebZcag5CnjszB+u4BdqzwaQOdcYb5wsJIsqq4kxInIRpJQ==
