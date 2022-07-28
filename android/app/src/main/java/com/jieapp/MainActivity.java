@@ -1,11 +1,12 @@
 package com.jieapp;
 
+import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 
 // react-native-splash-screen >= 0.3.1 
-// import org.devio.rn.splashscreen.SplashScreen; 
+import org.devio.rn.splashscreen.SplashScreen; 
 
 public class MainActivity extends ReactActivity {
 
@@ -18,11 +19,11 @@ public class MainActivity extends ReactActivity {
     return "jieapp";
   }
 
-  // @Override
-  // protected void onCreate(Bundle savedInstanceState) {
-  //   SplashScreen.show(this);
-  //   super.onCreate(null);
-  // }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    SplashScreen.show(this);
+    super.onCreate(null);
+  }
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
    * you can specify the renderer you wish to use - the new renderer (Fabric) or the old renderer
