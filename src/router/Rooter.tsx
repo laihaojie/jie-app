@@ -18,7 +18,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NavigationContainer } from '@react-navigation/native'
 import HomeScreen from 'src/views/HomeScreen/HomeScreen'
 import { isEmpty } from '@djie/utils'
-
 import UpdateAPK from 'jie-rn-update-apk'
 import ProgressModal from 'src/components/ShowModal/ProgressModal'
 import { routes } from './routes'
