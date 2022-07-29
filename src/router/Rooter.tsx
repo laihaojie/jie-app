@@ -4,7 +4,7 @@ import SplashScreen from 'react-native-splash-screen'
 import MyScreen from 'src/views/MyScreen/MyScreen'
 import { goBack, navRef, navigate } from 'src/utils/navigationService'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectToken } from 'src/store/selectors'
+import { selectToken, selectVersion } from 'src/store/selectors'
 import actions from 'src/store/actions'
 import Toast from 'react-native-simple-toast'
 import LoginScreen from 'src/views/LoginScreen/LoginScreen'
@@ -12,12 +12,15 @@ import TaskScreen from 'src/views/TaskScreen/TaskScreen'
 import TextScreen from 'src/views/TextScreen/TextScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import React from 'react'
-import { BackHandler, NativeModules } from 'react-native'
+import React, { useRef, useState } from 'react'
+import { Alert, BackHandler, NativeModules } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { NavigationContainer } from '@react-navigation/native'
 import HomeScreen from 'src/views/HomeScreen/HomeScreen'
 import { isEmpty } from '@djie/utils'
+
+import UpdateAPK from 'jie-rn-update-apk'
+import ProgressModal from 'src/components/ShowModal/ProgressModal'
 import { routes } from './routes'
 
 const Tab = createBottomTabNavigator()
@@ -42,6 +45,78 @@ const Routes: React.FC = function () {
       BackHandler.removeEventListener('hardwareBackPress', onBackPress)
     }
   }, [])
+
+  const updater = useRef<any>(null)
+  const version = useSelector(selectVersion)
+  const [progress, setProgress] = useState(0)
+
+  React.useEffect(() => {
+    console.log(version)
+  }, [version])
+  React.useEffect(() => {
+    updater.current.checkUpdate()
+  }, [])
+  // console.log(token);
+
+  updater.current = new UpdateAPK({
+
+    apkVersionUrl: 'https://api.laihaojie.com/api/public/androidVersion',
+    devVersion: version,
+    apkVersionOptions: {
+      method: 'GET',
+      headers: {},
+    },
+
+    apkOptions: {
+      headers: {},
+    },
+    fileProviderAuthority: 'com.jieapp.fileprovider',
+
+    needUpdateApp: (performUpdate) => {
+      console.log('开发更新版本号=================', version)
+      Alert.alert(
+        '有一个新的版本',
+        '新版本发布',
+        [
+          { text: '取消', onPress: () => { } },
+          {
+            text: '更新',
+            onPress: () => {
+              performUpdate(true)
+            },
+          },
+        ])
+    },
+
+    forceUpdateApp: () => {
+      console.log('forceUpdateApp callback called')
+    },
+
+    notNeedUpdateApp: ({ devVersion }) => {
+      dispatch(actions.setVersion(devVersion))
+    },
+    downloadApkStart: () => {
+      setProgressModalVisible(true)
+      // console.log("开发更新版本号=================", version);
+    },
+
+    downloadApkProgress: (progress) => {
+      setProgress(progress)
+    },
+
+    // This is called prior to the update. If you throw it will abort the update
+    downloadApkEnd: ({ devVersion }) => {
+      setProgressModalVisible(false)
+      dispatch(actions.setVersion(devVersion))
+    },
+
+    onError: (err) => {
+      console.log('onError callback called', err)
+      Alert.alert('There was an error', err.message)
+    },
+  })
+
+  const [progressModalVisible, setProgressModalVisible] = useState(false)
 
   React.useEffect(() => {
     (async function () {
@@ -86,8 +161,11 @@ const Routes: React.FC = function () {
       {
         isShow
         && <NavigationContainer ref={navRef}>
-
           {
+            progressModalVisible && <ProgressModal onClose={setProgressModalVisible} progress={progress}></ProgressModal>
+          }
+          {
+
             isEmpty(token)
               ? <Stack.Navigator screenOptions={{ headerTitleAlign: 'center', headerShown: false }} >
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
