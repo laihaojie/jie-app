@@ -212,6 +212,9 @@ dependencies {
 
     // 添加约束布局
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+
+    implementation project(':jpush-react-native')  // 添加 jpush 依赖
+    implementation project(':jcore-react-native')  // 添加 jcore 依赖
 }
 
 if (isNewArchitectureEnabled()) {

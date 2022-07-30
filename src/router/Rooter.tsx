@@ -20,6 +20,7 @@ import HomeScreen from 'src/views/HomeScreen/HomeScreen'
 import { isEmpty } from '@djie/utils'
 import UpdateAPK from 'jie-rn-update-apk'
 import ProgressModal from 'src/components/ShowModal/ProgressModal'
+import JPush from 'jpush-react-native'
 import { routes } from './routes'
 
 const Tab = createBottomTabNavigator()
@@ -125,6 +126,40 @@ const Routes: React.FC = function () {
       setIsShow(true)
       console.log(res)
     })()
+  }, [])
+
+  // 初始化极光推送
+  React.useEffect(() => {
+    // 初始化
+    JPush.init({ appKey: '038d271d427075791554f38d', titchannelle: 'developer-default', production: true })
+    // 连接状态
+    JPush.addConnectEventListener((result) => {
+      console.log(`connectListener:${JSON.stringify(result)}`)
+    })
+
+    // 通知回调
+    JPush.addNotificationListener((result) => {
+      console.log(`notificationListener:${JSON.stringify(result)}`)
+    })
+
+    // 本地通知回调
+    JPush.addLocalNotificationListener((result) => {
+      console.log(`localNotificationListener:${JSON.stringify(result)}`)
+    })
+
+    // tag alias事件回调
+    JPush.addTagAliasListener((result) => {
+      console.log(`tagAliasListener:${JSON.stringify(result)}`)
+    })
+
+    // 手机号码事件回调
+    JPush.addMobileNumberListener((result) => {
+      console.log(`mobileNumberListener:${JSON.stringify(result)}`)
+    })
+
+    JPush.getRegistrationID((registerID) => {
+      console.log('registerID : ', registerID)
+    })
   }, [])
 
   const check = (e) => {

@@ -38,5 +38,7 @@
           tools:replace="android:resource"
           />
     </provider>
+    <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default" />
+    <meta-data android:name="JPUSH_APPKEY" android:value="038d271d427075791554f38d" />
   </application>
 </manifest>
