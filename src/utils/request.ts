@@ -71,7 +71,7 @@ async function filterError<T>(url, method, data): Promise<T> {
 function generateRequestConfig(url, method, data) {
   const headers = {
     'Content-Type': 'application/json',
-    'authorization': getToken(),
+    'token': getToken(),
   }
   const options = { method, headers }
 
