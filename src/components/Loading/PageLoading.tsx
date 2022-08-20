@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 
 import type { ViewProps } from 'react-native'
 import { ActivityIndicator, View } from 'react-native'
